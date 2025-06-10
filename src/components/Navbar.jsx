@@ -30,7 +30,7 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className="bg-white shadow-md py-3 sticky top-0 z-40">
+            <nav className="bg-white shadow-sm py-4 sticky top-0 z-40">
                 <div className="w-11/12 mx-auto flex justify-between items-center">
                     {/* Mobile menu button - only visible on small screens */}
                     <div className="lg:hidden flex items-center">

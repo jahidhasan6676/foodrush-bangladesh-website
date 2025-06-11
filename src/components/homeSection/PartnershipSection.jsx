@@ -4,16 +4,16 @@ import Image from "next/image";
 const PartnershipSection = () => {
   return (
     <div className="w-11/12 mx-auto py-20">
-      <div className="flex flex-col md:flex-row gap-10">
+      <div className="flex flex-col lg:flex-row gap-10">
         {/* Restaurant Partner Card */}
-        <div className="flex flex-col lg:flex-row gap-8 items-center bg-white rounded-lg p-3 transform transition duration-1000 hover:scale-102 hover:shadow-sm">
+        <div className="flex flex-col md:flex-row gap-2 md:gap-8 items-center bg-white rounded-lg p-3 transform transition duration-1000 hover:scale-102 hover:shadow-sm">
           <div className="">
             <Image
               src="/partner.webp" 
               alt="Restaurant partner"
               width={400}
               height={250}
-              className="object-cover rounded-lg"
+              className="object-cover rounded-xl"
             />
           </div>
           <div className="">
@@ -31,14 +31,14 @@ const PartnershipSection = () => {
         </div>
 
         {/* Delivery Hero Card */}
-        <div className=" flex flex-col lg:flex-row gap-8 items-center bg-white rounded-lg p-3 transform transition duration-1000 hover:scale-102 hover:shadow-sm">
-          <div className="">
+        <div className=" flex flex-col md:flex-row gap-2 md:gap-8 items-center bg-white rounded-lg p-3 transform transition duration-1000 hover:scale-102 hover:shadow-sm">
+          <div className=" ">
             <Image
               src="/rider.webp" 
               alt="Delivery hero"
               width={400}
               height={250}
-              className="object-cover rounded-2xl"
+              className="object-cover rounded-2xl "
             />
           </div>
           <div className="">

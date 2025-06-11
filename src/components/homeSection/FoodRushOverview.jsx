@@ -9,7 +9,7 @@ const FoodRushOverview = () => {
                 <div>
                     <h2 className='text-2xl font-semibold md:font-bold text-[#ff2e87]'>FoodRush</h2>
                 </div>
-                <div className="flex space-x-4">
+                <div className="flex space-x-2 sm:space-x-4">
                     <a href="#" className="border border-[#ff2e87] hover:bg-[#ff2e87] text-[#ff2e87] hover:text-white p-2 rounded-md transition-colors">
                         <FaFacebookF className="w-4 h-4" />
                     </a>

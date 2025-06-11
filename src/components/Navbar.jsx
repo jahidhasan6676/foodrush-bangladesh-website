@@ -14,7 +14,7 @@ import { LiaClipboardListSolid } from "react-icons/lia";
 
 
 export default function Navbar() {
-    const [isLogged, setIsLogged] = useState(true);
+    const [isLogged, setIsLogged] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [showMobileMenu, setShowMobileMenu] = useState(false);

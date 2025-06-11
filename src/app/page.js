@@ -1,12 +1,13 @@
-import Banner from "@/components/Banner";
-import Footer from "@/components/Footer";
+import Banner from "@/components/homeSection/Banner";
+import PartnershipSection from "@/components/homeSection/PartnershipSection";
+
 
 
 export default function Home() {
   return (
     <div>
       <Banner/>
-      <h2 className="text-2xl">Home</h2>
+      <PartnershipSection/>
       
     </div>
   );

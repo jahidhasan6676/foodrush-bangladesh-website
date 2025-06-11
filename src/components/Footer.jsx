@@ -109,7 +109,7 @@ const Footer = () => {
                 <div className="flex flex-col md:flex-row justify-between items-center">
                     <p className="text-gray-500 text-sm">
                         &copy; {new Date().getFullYear()} FoodRush. All rights reserved.
-                    </p>
+                    </p> 
 
                     <div className="flex space-x-6 mt-4 md:mt-0">
                         <a href="#" className="text-gray-600 hover:text-[#ff2e87] text-sm transition-colors">Privacy Policy</a>

@@ -1,8 +1,25 @@
 "use client"
+import axios from 'axios';
 import { FaFacebook } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 
 export default function LoginPage() {
+
+    // const handleSubmit = async(e) =>{
+    //     e.preventDefault();
+
+    //     const form = e.target;
+    //     const name = form.name.value;
+    //     const password = form.password.value;
+        
+    //     const loginData = {
+    //         name,
+    //         password
+    //     }
+    //     //console.log(loginData)
+
+    //     const response = await axios.post("api/users", loginData)
+    // }
 
     return (
         <>

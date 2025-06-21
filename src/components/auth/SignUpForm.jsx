@@ -1,6 +1,46 @@
 "use client"
 
+import axios from "axios";
+import { useState } from "react";
+
 export default function SignUpForm() {
+    const [error,setError] = useState("");
+
+    const handleSubmit = async(e) =>{
+        e.preventDefault();
+
+        const form = e.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        
+        const loginData = {
+            name,
+            email,
+            password
+        }
+        console.log(loginData)
+
+        if(!name || !email || !password){
+            setError("All fields are necessary.");
+            return;
+        }
+
+        try{
+            const response = await axios.post("api/register", loginData);
+
+            if(response.status === 200 || response.status === 201){
+                form.reset();
+                setError("")
+            }else{
+                console.log("User registration failed")
+            }
+        }catch(error){
+            console.log("Error during registration:", error)
+        }
+
+        
+    }
 
 
     return (
@@ -14,7 +54,21 @@ export default function SignUpForm() {
                             </h2>
                             <h5 className='text-center text-lg text-gray-600 mt-1'>Sign up into your account from here</h5>
                         </div>
-                        <form className="space-y-4">
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            <div>
+                                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                                    Name 
+                                </label>
+                                <div className="mt-1">
+                                    <input
+                                        id="name"
+                                        name="name"
+                                        type="name"
+                                        placeholder="Full Name"
+                                        className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#ff2e87]" />
+                                </div>
+                            </div>
+
                             <div>
                                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                                     Email 
@@ -74,6 +128,11 @@ export default function SignUpForm() {
                                 </button>
                             </div>
                         </form>
+                        {error &&(
+                            <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">
+                                {error}
+                            </div>
+                        )}
                         <p className="mt-2 text-center text-sm text-gray-600">
                             Already have an account?{' '}
                             <a

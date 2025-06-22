@@ -7,6 +7,7 @@ import { IoIosArrowDown, IoIosClose, IoIosLogOut, IoIosMenu } from "react-icons/
 import { FaRegUser } from "react-icons/fa6";
 import { IoHelpCircleOutline } from "react-icons/io5";
 import { LiaClipboardListSolid } from "react-icons/lia";
+import { signOut } from 'next-auth/react';
 
 
 export default function Navbar() {
@@ -73,7 +74,7 @@ export default function Navbar() {
                                             </div>
                                             </Link>
 
-                                            <button className="flex items-center justify-between gap-2 px-4 py-2 rounded-lg hover:bg-gray-100 w-full"><div className="flex items-center gap-2 font-medium text-gray-700">
+                                            <button onClick={()=>signOut()} className="flex items-center justify-between gap-2 px-4 py-2 rounded-lg hover:bg-gray-100 w-full"><div className="flex items-center gap-2 font-medium text-gray-700">
                                                 <IoIosLogOut className="w-[18px] h-[18px]" />
                                                 LogOut
                                             </div>

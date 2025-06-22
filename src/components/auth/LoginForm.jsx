@@ -1,25 +1,41 @@
 "use client"
-import axios from 'axios';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { FaFacebook } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
+import { toast } from 'react-toastify';
 
 export default function LoginPage() {
+    const [error, setError] = useState("");
+    const router = useRouter();
 
-    // const handleSubmit = async(e) =>{
-    //     e.preventDefault();
+    const handleLoginSubmit = async (e) => {
+        e.preventDefault();
 
-    //     const form = e.target;
-    //     const name = form.name.value;
-    //     const password = form.password.value;
-        
-    //     const loginData = {
-    //         name,
-    //         password
-    //     }
-    //     //console.log(loginData)
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
 
-    //     const response = await axios.post("api/users", loginData)
-    // }
+        try {
+            const response = await signIn("credentials", {
+                email,
+                password,
+                callbackUrl: "/",
+                redirect: false,
+            });
+
+            if (response.ok) {
+                toast.success("Login Success");
+                router.push("/");
+                form.reset();
+            } else {
+                toast.error("Authentication failed");
+            }
+        } catch (error) {
+            toast.error(error);
+        }
+    }
 
     return (
         <>
@@ -54,7 +70,7 @@ export default function LoginPage() {
                                 </div>
                             </div>
                         </div>
-                        <form className="space-y-4">
+                        <form onSubmit={handleLoginSubmit} className="space-y-4">
                             <div>
                                 <label
                                     htmlFor="email"

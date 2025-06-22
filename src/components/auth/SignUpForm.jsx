@@ -1,10 +1,13 @@
 "use client"
 
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function SignUpForm() {
     const [error,setError] = useState("");
+    const router = useRouter();
 
     const handleSubmit = async(e) =>{
         e.preventDefault();
@@ -31,12 +34,14 @@ export default function SignUpForm() {
 
             if(response.status === 200 || response.status === 201){
                 form.reset();
-                setError("")
+                setError("");
+                router.push("/")
             }else{
                 console.log("User registration failed")
             }
         }catch(error){
             console.log("Error during registration:", error)
+            toast.error(`${error?.response?.data?.error}`)
         }
 
         

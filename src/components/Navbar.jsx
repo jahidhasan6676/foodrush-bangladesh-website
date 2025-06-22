@@ -7,12 +7,20 @@ import { IoIosArrowDown, IoIosClose, IoIosLogOut, IoIosMenu } from "react-icons/
 import { FaRegUser } from "react-icons/fa6";
 import { IoHelpCircleOutline } from "react-icons/io5";
 import { LiaClipboardListSolid } from "react-icons/lia";
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 
 export default function Navbar() {
-    const [isLogged, setIsLogged] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
+    const {data: session} = useSession();
+    const router = useRouter();
+    console.log("user:", session)
+   
+    const handleLogout = () =>{
+        signOut({redirect: false});
+        router.push("/login")
+    }
 
     const toggleDropdown = () => setShowDropdown(!showDropdown);
 
@@ -42,7 +50,7 @@ export default function Navbar() {
                             </span>
                         </button>
 
-                        {isLogged ? (
+                        {session?.user?.email ? (
                             <>
                                 <div className='flex items-center gap-1 relative'>
                                     <button onClick={toggleDropdown} className="flex items-center gap-1">
@@ -74,7 +82,7 @@ export default function Navbar() {
                                             </div>
                                             </Link>
 
-                                            <button onClick={()=>signOut()} className="flex items-center justify-between gap-2 px-4 py-2 rounded-lg hover:bg-gray-100 w-full"><div className="flex items-center gap-2 font-medium text-gray-700">
+                                            <button onClick={handleLogout} className="flex items-center justify-between gap-2 px-4 py-2 rounded-lg hover:bg-gray-100 w-full"><div className="flex items-center gap-2 font-medium text-gray-700">
                                                 <IoIosLogOut className="w-[18px] h-[18px]" />
                                                 LogOut
                                             </div>

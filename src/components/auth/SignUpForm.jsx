@@ -35,7 +35,7 @@ export default function SignUpForm() {
             if(response.status === 200 || response.status === 201){
                 form.reset();
                 setError("");
-                router.push("/")
+                router.push("/login")
             }else{
                 console.log("User registration failed")
             }

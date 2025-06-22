@@ -1,10 +1,9 @@
-"use client"
+"use client";
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { FaFacebook } from 'react-icons/fa';
-import { FcGoogle } from 'react-icons/fc';
 import { toast } from 'react-toastify';
+import SocialLogin from './SocialLogin';
 
 export default function LoginPage() {
     const [error, setError] = useState("");
@@ -25,7 +24,7 @@ export default function LoginPage() {
                 redirect: false,
             });
 
-            if (response.ok) {
+            if (response?.ok) {
                 toast.success("Login Success");
                 router.push("/");
                 form.reset();
@@ -49,16 +48,7 @@ export default function LoginPage() {
                             <h5 className='text-center text-lg text-gray-600 mt-1'>Sign in into your account from here</h5>
                         </div>
                         <div>
-                            <div className="mt-6 ">
-                                <button className="bg-[#1877f2] text-white w-full p-2 rounded font-medium mb-3 flex items-center gap-2">
-                                    <FaFacebook className="text-xl" /> <span className="w-full text-center">Continue with Facebook</span>
-                                </button>
-
-                                <button className="border w-full py-2 rounded font-medium mb-3 flex items-center justify-start gap-2 pl-3">
-                                    <FcGoogle className="text-xl" /> <span className="w-full text-center">Continue with Google</span>
-                                </button>
-                            </div>
-
+                            <SocialLogin />
                             <div className="relative py-4">
                                 <div className="absolute inset-0 flex items-center">
                                     <div className="w-full border-t border-gray-300"></div>

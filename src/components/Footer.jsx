@@ -1,8 +1,12 @@
+"use client";
+import { usePathname } from 'next/navigation';
 import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaClock, FaAppleAlt, FaGooglePlay } from 'react-icons/fa';
 import { FaApple } from 'react-icons/fa6';
 import { MdDeliveryDining } from 'react-icons/md';
 
 const Footer = () => {
+    const pathname = usePathname();
+    if(pathname.startsWith("/dashboard")) return null;
     return (
         <footer className="w-11/12 mx-auto text-gray-700 pt-16 pb-8 border-t border-gray-200 ">
             {/* Main Footer Content */}

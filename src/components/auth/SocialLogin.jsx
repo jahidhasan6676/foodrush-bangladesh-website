@@ -1,24 +1,14 @@
 "use client";
 import { signIn, useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react';
 import { FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
-import { toast } from 'react-toastify';
 
 const SocialLogin = () => {
-    const {data: session, status} = useSession();
-    const router = useRouter();
     const handleSocialLogin = (providerName) => {
-        signIn(providerName)
+        signIn(providerName, {callbackUrl: "/"})
     }
 
-    // useEffect(()=>{
-    //     if(session?.user && status === "authenticated"){
-    //         router.push("/");
-    //         toast.success("Successfully Logged IN")
-    //     }
-    // }, [session,status])
+    
     return (
         <div>
             <div className="mt-6 ">

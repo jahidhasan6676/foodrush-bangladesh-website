@@ -8,13 +8,14 @@ import { FaRegUser } from "react-icons/fa6";
 import { IoHelpCircleOutline } from "react-icons/io5";
 import { LiaClipboardListSolid } from "react-icons/lia";
 import { signOut, useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 
 export default function Navbar() {
     const [showDropdown, setShowDropdown] = useState(false);
     const {data: session} = useSession();
     const router = useRouter();
+    const pathname = usePathname();
     console.log("user:", session)
    
     const handleLogout = () =>{
@@ -23,6 +24,8 @@ export default function Navbar() {
     }
 
     const toggleDropdown = () => setShowDropdown(!showDropdown);
+
+    if(pathname.startsWith("/dashboard")) return null;
 
     return (
         <>
@@ -73,6 +76,11 @@ export default function Navbar() {
                                             <Link href="/profile"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
                                                 <FaRegUser className="w-[18px] h-[18px]" />
                                                 Profile
+                                            </div>
+                                            </Link>
+                                            <Link href="/dashboard"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
+                                                <FaRegUser className="w-[18px] h-[18px]" />
+                                                Dashboard
                                             </div>
                                             </Link>
                                             <hr className='text-gray-200/70' />

@@ -1,24 +1,67 @@
 "use client";
 
+import { imageUploadToImgbb } from "@/app/api/utils/imageUpload";
+import axios from "axios";
+
 export default function AddProduct() {
-    const handleSubmit = (e) => {
+    const handleAddProductSubmit = async(e) => {
         e.preventDefault();
-        // Handle form submission logic here
+
+        const form = e.target;
+        const productName = form.productName.value;
+        const price = form.price.value;
+        const discountPrice = form.discountPrice.value;
+        const quantity = form.quantity.value;
+        const deliveryCharge = form.deliveryCharge.value;
+        const deliveryTime = form.deliveryTime.value;
+        const category = form.category.value;
+        const division = form.division.value;
+        const district = form.district.value;
+        const area = form.area.value;
+        const description = form.description.value;
+        const image = form.image.files[0];
+        const photo = await imageUploadToImgbb(image);
+
+        const productData = {
+            productName,
+            price,
+            discountPrice,
+            quantity,
+            deliveryCharge,
+            deliveryTime,
+            category,
+            division,
+            district,
+            area,
+            description,
+            photo,
+            status: "pending"
+        }
+        //console.log("product data:", productData)
+
+        try{
+            const res = await axios.post("/api/addProduct", productData)
+            console.log("product added:", res.data)
+        }catch(error){
+            console.log("error adding product:",error)
+        }
+
+        
     };
 
     return (
-        <div className="max-w-5xl mx-auto px-4 py-8">
+        <div className="w-11/12 max-w-5xl mx-auto py-8">
             <div className="bg-white rounded-xl shadow-sm p-6">
                 <h2 className="text-3xl font-bold mb-2 text-gray-800 text-center">Add New Product</h2>
                 <p className="text-gray-500 text-center mb-8">Fill in the details of your new product</p>
 
-                <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <form onSubmit={handleAddProductSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Product Name */}
                     <div className="space-y-2">
                         <label className="block font-medium text-gray-700">Product Name</label>
                         <input
                             type="text"
-                            name="name"
+                            name="productName"
                             className="w-full p-3 border border-gray-200 rounded-lg focus:ring-0"
                             placeholder="e.g. Chicken Burger"
                             required
@@ -88,9 +131,7 @@ export default function AddProduct() {
                         <label className="block font-medium text-gray-700">Main Category</label>
                         <select
                             name="category"
-                            className="w-full p-3 border border-gray-200 rounded-lg focus:ring-0 appearance-none"
-                            required
-                        >
+                            className="w-full p-3 border border-gray-200 rounded-lg focus:ring-0 appearance-none" required >
                             <option value="">Select Category</option>
                             <option value="food">Food</option>
                             <option value="drink">Drink</option>
@@ -107,9 +148,7 @@ export default function AddProduct() {
                         <label className="block font-medium text-gray-700">Division</label>
                         <select
                             name="division"
-                            className="w-full p-3 border border-gray-200 rounded-lg focus:ring-0 appearance-none"
-                            required
-                        >
+                            className="w-full p-3 border border-gray-200 rounded-lg focus:ring-0 appearance-none"  required >
                             <option value="">Select Division</option>
                             <option value="dhaka">Dhaka</option>
                             <option value="chattogram">Chattogram</option>

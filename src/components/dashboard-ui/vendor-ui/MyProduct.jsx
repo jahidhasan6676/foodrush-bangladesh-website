@@ -60,6 +60,8 @@ const MyProduct = () => {
             console.error("Delete failed:", error.response?.data?.message || error.message);
         }
     }
+
+    
     if (isLoading) return <h2>Loading...</h2>
     console.log("all Product data:", products)
     return (
@@ -84,9 +86,8 @@ const MyProduct = () => {
                             <TableCell className="text-[15px]">{product?.price}</TableCell>
                             <TableCell className={`text-[15px] ${product?.status === "pending" ? "text-blue-500" : ""} ${product?.status === "approve" ? "text-green-500" : ""} ${product?.status === "reject" ? "text-red-500" : ""}`}>{product?.status}</TableCell>
                             <TableCell className="text-right">
-                                <Link href={"hello"}>
+                                <Link href={`/dashboard/vendor/myProduct/${product?._id}`}>
                                     <button
-                                        //onClick={() => handleUpdateProduct(_id)}
                                         className="bg-blue-500 text-white px-2 py-2 rounded-md mr-2 hover:bg-blue-600">
                                         <FaRegEdit />
                                     </button>

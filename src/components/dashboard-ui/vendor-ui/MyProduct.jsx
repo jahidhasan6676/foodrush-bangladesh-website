@@ -15,17 +15,51 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import Swal from "sweetalert2";
 
 
 const MyProduct = () => {
     const { data: session } = useSession();
-    const { data: products = [], isLoading, error } = useQuery({
+    const { data: products = [], isLoading, error,refetch } = useQuery({
         queryKey: ["products", session?.user?.email],
         queryFn: async () => {
             const res = await axios.get("/api/addProduct", { params: { email: session?.user?.email } });
             return res?.data;
         }
     })
+
+    // product delete from database
+    const handleProductDelete = async (id) => {
+
+        try {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    const res = await axios.delete("/api/addProduct", { params: { id } })
+                    console.log("res", res)
+                    if (res?.status === 200) {
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Product Successfully Deleted.",
+                            icon: "success"
+                        });
+                        refetch();
+                    }
+
+                }
+            });
+
+        }catch(error){
+            console.error("Delete failed:", error.response?.data?.message || error.message);
+        }
+    }
     if (isLoading) return <h2>Loading...</h2>
     console.log("all Product data:", products)
     return (
@@ -59,7 +93,7 @@ const MyProduct = () => {
                                 </Link>
 
                                 <button
-                                    //onClick={() => handleProductDelete(_id)}
+                                    onClick={() => handleProductDelete(product?._id)}
                                     className="bg-red-500 text-white px-2 py-2 rounded-md hover:bg-red-600">
                                     <MdDelete />
                                 </button>

@@ -5,6 +5,8 @@ import {
   AudioWaveform,
   BookOpen,
   Bot,
+  Boxes,
+  ClipboardList,
   Command,
   Frame,
   GalleryVerticalEnd,
@@ -55,6 +57,19 @@ const data = {
       icon: Plus,
       isActive: true,
     },
+    {
+      title: "My Product",
+      url: "/dashboard/vendor/myProduct",
+      icon: Boxes,
+      isActive: true,
+    },
+    {
+      title: "Orders",
+      url: "/dashboard/vendor/myOrders",
+      icon: ClipboardList,
+      isActive: true,
+    },
+    
     {
       title: "Models",
       url: "#",

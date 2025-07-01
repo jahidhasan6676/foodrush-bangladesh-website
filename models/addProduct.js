@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema(
-     {
+  {
     productName: {
       type: String,
       required: true,
@@ -26,7 +26,7 @@ const productSchema = new mongoose.Schema(
       default: 0,
     },
     deliveryTime: {
-      type: String, 
+      type: String,
       required: true,
     },
     category: {
@@ -50,16 +50,21 @@ const productSchema = new mongoose.Schema(
       default: "",
     },
     photo: {
-      type: String, 
+      type: String,
       required: true,
     },
     status: {
-        type: String,
-        default: "pending"
-    }
+      type: String,
+      default: "pending"
+    },
+    ownerInfo: {
+      name: { type: String },
+      email: { type: String },
+      image: { type: String }
+    },
   },
   {
-    timestamps: true, 
+    timestamps: true,
   }
 );
 

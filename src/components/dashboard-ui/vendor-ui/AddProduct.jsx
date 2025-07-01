@@ -2,8 +2,11 @@
 
 import { imageUploadToImgbb } from "@/app/api/utils/imageUpload";
 import axios from "axios";
+import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
 
 export default function AddProduct() {
+    const {data: session} = useSession();
     const handleAddProductSubmit = async(e) => {
         e.preventDefault();
 
@@ -35,15 +38,22 @@ export default function AddProduct() {
             area,
             description,
             photo,
-            status: "pending"
+            status: "pending",
+            ownerInfo: {
+                name: session?.user?.name,
+                email: session?.user?.email,
+                image: session?.user?.image
+            }
         }
         //console.log("product data:", productData)
 
         try{
             const res = await axios.post("/api/addProduct", productData)
-            console.log("product added:", res.data)
+            console.log("product added:", res.data);
+            toast.success(`${res?.data?.data?.productName} Successfully Added`)
         }catch(error){
             console.log("error adding product:",error)
+            toast.error("Something Wrong")
         }
 
         

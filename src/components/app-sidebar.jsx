@@ -10,11 +10,14 @@ import {
   Command,
   Frame,
   GalleryVerticalEnd,
+  Home,
+  LogIn,
   Map,
   PieChart,
   Plus,
   Settings2,
   SquareTerminal,
+  User,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -135,6 +138,16 @@ const data = {
         },
       ],
     },
+    {
+      title: "Profile",
+      url: "/dashboard/profile",
+      icon: User,
+    },
+    {
+      title: "Home",
+      url: "/",
+      icon: Home,
+    }
   ],
   // projects: [
   //   {

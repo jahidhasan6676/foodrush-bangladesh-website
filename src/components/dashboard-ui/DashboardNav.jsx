@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import {
     SidebarTrigger,
@@ -7,8 +8,14 @@ import { Bell, Search, UserCircle, ChevronDown } from 'lucide-react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useSession } from 'next-auth/react';
+import Image from 'next/image';
+import useRole from '../client-hooks/useRole';
 
 const DashboardNav = () => {
+    const {role} = useRole();
+    const {data: session} = useSession();
+    console.log("dashboard nav:", role)
     return (
         <div className="w-full sticky top-0 z-30 flex h-[56px] bg-[#fafafa] items-center gap-4 border-b ">
             <header className=" flex items-center gap-4 w-11/12 mx-auto">
@@ -38,13 +45,12 @@ const DashboardNav = () => {
 
                     {/* User Profile */}
                     <div className="flex items-center gap-2">
-                        <Avatar className="h-8 w-8">
-                            <AvatarImage src="/avatars/admin.png" alt="Admin" />
-                            <AvatarFallback>AD</AvatarFallback>
-                        </Avatar>
+                        <div className="">
+                            <Image src={session?.user?.image} alt='profile' width={40} height={40} className='rounded-full'/>
+                        </div> 
                         <div className="hidden md:block">
-                            <p className="text-sm font-medium">Admin</p>
-                            <p className="text-xs text-muted-foreground">admin@foodrush.com</p>
+                           <p className="text-sm font-medium">{role?.role}</p>
+                             <p className="text-xs text-muted-foreground">{session?.user?.email}</p>
                         </div>
                         <ChevronDown className="h-4 w-4 text-muted-foreground" />
                     </div>

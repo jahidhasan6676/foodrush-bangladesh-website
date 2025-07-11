@@ -72,6 +72,12 @@ const data = {
       icon: ClipboardList,
       isActive: true,
     },
+    {
+      title: "All Users",
+      url: "/dashboard/admin/allUsers",
+      icon: ClipboardList,
+      isActive: true,
+    },
     
     {
       title: "Models",

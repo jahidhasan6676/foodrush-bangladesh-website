@@ -46,11 +46,11 @@ const DashboardNav = () => {
                     {/* User Profile */}
                     <div className="flex items-center gap-2">
                         <div className="">
-                            <Image src={session?.user?.image} alt='profile' width={40} height={40} className='rounded-full'/>
+                            {session?.user?.email && <Image src={session?.user?.image} alt='profile' width={40} height={40} className='rounded-full'/>}
                         </div> 
                         <div className="hidden md:block">
-                           <p className="text-sm font-medium">{role?.role}</p>
-                             <p className="text-xs text-muted-foreground">{session?.user?.email}</p>
+                           {role && <p className="text-sm font-medium">{role?.role}</p>}
+                             {session?.user?.email && <p className="text-xs text-muted-foreground">{session?.user?.email}</p>}
                         </div>
                         <ChevronDown className="h-4 w-4 text-muted-foreground" />
                     </div>

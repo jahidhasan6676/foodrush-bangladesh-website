@@ -5,6 +5,8 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../../../../lib/authOptions";
 
 export async function POST(req) {
+    
+
     try {
         const body = await req.json();
         //console.log("body", body)
@@ -19,6 +21,8 @@ export async function POST(req) {
 }
 
 export async function GET(req) {
+   
+
     try {
         await connectionToDatabase();
         const { searchParams } = new URL(req.url);
@@ -38,6 +42,8 @@ export async function GET(req) {
 }
 
 export async function DELETE(req) {
+    
+
     try {
         await connectionToDatabase();
 

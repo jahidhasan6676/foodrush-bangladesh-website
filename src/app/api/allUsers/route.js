@@ -3,6 +3,7 @@ import connectionToDatabase from "../../../../lib/db";
 import User from "../../../../models/user";
 
 export async function GET(req) {
+   
 
     await connectionToDatabase();
     const url = new URL(req.url);
@@ -19,10 +20,12 @@ export async function GET(req) {
 }
 
 export async function DELETE(req) {
+    
+
     await connectionToDatabase();
     try {
         const body = await req.json();
-       //console.log("body", body)
+        //console.log("body", body)
         const { userId } = body;
         //console.log("UserId", userId)
 

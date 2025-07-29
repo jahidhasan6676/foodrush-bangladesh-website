@@ -73,8 +73,8 @@ const allNavItems = {
       icon: SquareTerminal,
     },
     {
-      title: "Orders",
-      url: "/dashboard/vendor/myOrders",
+      title: "My Orders",
+      url: "/dashboard/customer/myOrders",
       icon: ClipboardList,
     },
   ],
@@ -120,7 +120,7 @@ const allNavItems = {
 const commonItems = [
   {
     title: "Profile",
-    url: "/dashboard/profile",
+    url: "/dashboard/allRole/profile",
     icon: User,
   },
   {

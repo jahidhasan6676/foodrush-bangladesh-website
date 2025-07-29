@@ -13,8 +13,8 @@ import Image from 'next/image';
 import useRole from '../client-hooks/useRole';
 
 const DashboardNav = () => {
-    const {role} = useRole();
-    const {data: session} = useSession();
+    const { role } = useRole();
+    const { data: session } = useSession();
     console.log("dashboard nav:", role)
     return (
         <div className="w-full sticky top-0 z-30 flex h-[56px] bg-[#fafafa] items-center gap-4 border-b ">
@@ -46,11 +46,26 @@ const DashboardNav = () => {
                     {/* User Profile */}
                     <div className="flex items-center gap-2">
                         <div className="">
-                            {session?.user?.email && <Image src={session?.user?.image} alt='profile' width={40} height={40} className='rounded-full'/>}
-                        </div> 
+                            {session?.user?.image ? (
+                                <Image
+                                    src={session.user.image}
+                                    alt='profile'
+                                    width={40}
+                                    height={40}
+                                    className='rounded-full'
+                                />
+                            ) : (
+                                <Avatar>
+                                    <AvatarFallback>
+                                        {session?.user?.name?.charAt(0) || "U"}
+                                    </AvatarFallback>
+                                </Avatar>
+                            )}
+
+                        </div>
                         <div className="hidden md:block">
-                           {role && <p className="text-sm font-medium">{role?.role}</p>}
-                             {session?.user?.email && <p className="text-xs text-muted-foreground">{session?.user?.email}</p>}
+                            {role && <p className="text-sm font-medium">{role?.role}</p>}
+                            {session?.user?.email && <p className="text-xs text-muted-foreground">{session?.user?.email}</p>}
                         </div>
                         <ChevronDown className="h-4 w-4 text-muted-foreground" />
                     </div>

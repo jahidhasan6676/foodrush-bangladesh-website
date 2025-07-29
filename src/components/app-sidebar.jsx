@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
   AudioWaveform,
   BookOpen,
@@ -18,178 +18,164 @@ import {
   Settings2,
   SquareTerminal,
   User,
-} from "lucide-react"
+} from "lucide-react";
 
-import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
-import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
+import { NavMain } from "@/components/nav-main";
+import { NavUser } from "@/components/nav-user";
+import { TeamSwitcher } from "@/components/team-switcher";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
+import useRole from "./client-hooks/useRole";
 
-// This is sample data.
-const data = {
-  user: {
-    name: "FoodRush",
-    email: "foodrush@gmail.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  teams: [
-    {
-      name: "FoodRush",
-      logo: GalleryVerticalEnd,
-      // plan: "Enterprise",
-    },
-    
-  ],
-  navMain: [
+
+const allNavItems = {
+  admin: [
     {
       title: "Dashboard",
       url: "/dashboard",
       icon: SquareTerminal,
-      isActive: true,
-    },
-    {
-      title: "Add Product",
-      url: "/dashboard/vendor/addProduct",
-      icon: Plus,
-      isActive: true,
-    },
-    {
-      title: "My Product",
-      url: "/dashboard/vendor/myProduct",
-      icon: Boxes,
-      isActive: true,
-    },
-    {
-      title: "Orders",
-      url: "/dashboard/vendor/myOrders",
-      icon: ClipboardList,
-      isActive: true,
     },
     {
       title: "All Users",
       url: "/dashboard/admin/allUsers",
       icon: ClipboardList,
-      isActive: true,
+    },
+  ],
+
+  vendor: [
+    {
+      title: "Dashboard",
+      url: "/dashboard",
+      icon: SquareTerminal,
+    },
+    {
+      title: "Add Product",
+      url: "/dashboard/vendor/addProduct",
+      icon: Plus,
+    },
+    {
+      title: "My Product",
+      url: "/dashboard/vendor/myProduct",
+      icon: Boxes,
     },
     
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Profile",
-      url: "/dashboard/profile",
-      icon: User,
-    },
-    {
-      title: "Home",
-      url: "/",
-      icon: Home,
-    }
   ],
-  // projects: [
+
+  customer: [
+    {
+      title: "Dashboard",
+      url: "/dashboard",
+      icon: SquareTerminal,
+    },
+    {
+      title: "Orders",
+      url: "/dashboard/vendor/myOrders",
+      icon: ClipboardList,
+    },
+  ],
+
+  rider: [
+    {
+      title: "Dashboard",
+      url: "/dashboard",
+      icon: SquareTerminal,
+    },
+    {
+      title: "Pending Orders",
+      url: "/dashboard/pendingOrders",
+      icon: SquareTerminal,
+    },
+  ],
+
+  // common: [
   //   {
-  //     name: "Design Engineering",
+  //     title: "Models",
   //     url: "#",
-  //     icon: Frame,
+  //     icon: Bot,
+  //     items: [
+  //       { title: "Genesis", url: "#" },
+  //       { title: "Explorer", url: "#" },
+  //       { title: "Quantum", url: "#" },
+  //     ],
   //   },
   //   {
-  //     name: "Sales & Marketing",
+  //     title: "Documentation",
   //     url: "#",
-  //     icon: PieChart,
-  //   },
-  //   {
-  //     name: "Travel",
-  //     url: "#",
-  //     icon: Map,
+  //     icon: BookOpen,
+  //     items: [
+  //       { title: "Introduction", url: "#" },
+  //       { title: "Get Started", url: "#" },
+  //       { title: "Tutorials", url: "#" },
+  //       { title: "Changelog", url: "#" },
+  //     ],
   //   },
   // ],
-}
+};
 
-export function AppSidebar({
-  ...props
-}) {
+const commonItems = [
+  {
+    title: "Profile",
+    url: "/dashboard/profile",
+    icon: User,
+  },
+  {
+    title: "Home",
+    url: "/",
+    icon: Home,
+  },
+  {
+    title: "Settings",
+    url: "#",
+    icon: Settings2,
+    items: [
+      { title: "General", url: "#" },
+      { title: "Team", url: "#" },
+      { title: "Billing", url: "#" },
+      { title: "Limits", url: "#" },
+    ],
+  },
+];
+
+const userData = {
+  name: "FoodRush",
+  email: "foodrush@gmail.com",
+  avatar: "/avatars/shadcn.jpg",
+};
+
+const teams = [
+  {
+    name: "FoodRush",
+    logo: GalleryVerticalEnd,
+  },
+];
+
+export function AppSidebar(props) {
+  const { role } = useRole();
+
+
+  const roleItems = allNavItems[role.role] || [];
+
+
+  const finalNav = [...roleItems, ...commonItems];
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <TeamSwitcher teams={teams} />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        {/* <NavProjects projects={data.projects} /> */}
+        <NavMain items={finalNav} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={userData} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   );
 }
+

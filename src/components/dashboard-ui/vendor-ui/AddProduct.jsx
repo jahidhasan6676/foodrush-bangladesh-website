@@ -3,9 +3,11 @@
 import { imageUploadToImgbb } from "@/app/api/utils/imageUpload";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 
 export default function AddProduct() {
+    //const  [selectImage,setSelectImage] = useState();
     const {data: session} = useSession();
     const handleAddProductSubmit = async(e) => {
         e.preventDefault();
@@ -51,6 +53,7 @@ export default function AddProduct() {
             const res = await axios.post("/api/addProduct", productData)
             console.log("product added:", res.data);
             toast.success(`${res?.data?.data?.productName} Successfully Added`)
+            form.reset();
         }catch(error){
             console.log("error adding product:",error)
             toast.error("Something Wrong")
@@ -163,6 +166,10 @@ export default function AddProduct() {
                             <option value="dhaka">Dhaka</option>
                             <option value="chattogram">Chattogram</option>
                             <option value="khulna">Khulna</option>
+                            <option value="khulna">Rajshahi</option>
+                            <option value="khulna">Barishal</option>
+                            <option value="khulna">Sylhet</option>
+                            <option value="khulna">Rangpur</option>
                         </select>
                     </div>
 

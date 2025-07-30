@@ -9,23 +9,25 @@ import { IoHelpCircleOutline } from "react-icons/io5";
 import { LiaClipboardListSolid } from "react-icons/lia";
 import { signOut, useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
+import useRole from './client-hooks/useRole';
 
 
 export default function Navbar() {
     const [showDropdown, setShowDropdown] = useState(false);
-    const {data: session} = useSession();
+    const { data: session } = useSession();
     const router = useRouter();
     const pathname = usePathname();
-    console.log("user:", session)
-   
-    const handleLogout = () =>{
-        signOut({redirect: false});
+    const { role } = useRole();
+    //console.log("user:", session)
+
+    const handleLogout = () => {
+        signOut({ redirect: false });
         router.push("/login")
     }
 
     const toggleDropdown = () => setShowDropdown(!showDropdown);
 
-    if(pathname.startsWith("/dashboard")) return null;
+    if (pathname.startsWith("/dashboard")) return null;
 
     return (
         <>
@@ -68,21 +70,41 @@ export default function Navbar() {
                                     {showDropdown && (
                                         <div className=" absolute right-0 top-full mt-[17px] w-64 bg-white rounded-sm border-none shadow-sm z-50 p-4">
 
-                                            <Link href="/profile"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
-                                                <LiaClipboardListSolid className="w-[18px] h-[18px]" />
-                                                Orders & reordering
+                                            <Link href="/"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
+                                                <FaRegUser className="w-[18px] h-[18px]" />
+                                                Home
                                             </div>
                                             </Link>
-                                            <Link href="/profile"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
+
+                                            {role.role === "customer" && <Link href="/profile"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
                                                 <FaRegUser className="w-[18px] h-[18px]" />
                                                 Profile
                                             </div>
-                                            </Link>
-                                            <Link href="/dashboard"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
+                                            </Link>}
+
+                                            {role.role === "customer" && <Link href="/subscribe"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
+                                                <FaRegUser className="w-[18px] h-[18px]" />
+                                                Subscribe
+                                            </div>
+                                            </Link>}
+
+                                            {role.role === "customer" && <Link href="/profile"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
+                                                <LiaClipboardListSolid className="w-[18px] h-[18px]" />
+                                               My Orders
+                                            </div>
+                                            </Link>}
+
+                                            {role.role === "customer" && <Link href="/wallet"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
+                                                <LiaClipboardListSolid className="w-[18px] h-[18px]" />
+                                               Wallet
+                                            </div>
+                                            </Link>}
+                                            
+                                            {role.role !== "customer" && <Link href="/dashboard"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
                                                 <FaRegUser className="w-[18px] h-[18px]" />
                                                 Dashboard
                                             </div>
-                                            </Link>
+                                            </Link>}
                                             <hr className='text-gray-200/70' />
                                             <Link href="/profile"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
                                                 <IoHelpCircleOutline className="w-[18px] h-[18px]" />

@@ -45,6 +45,16 @@ const allNavItems = {
       url: "/dashboard/admin/allUsers",
       icon: ClipboardList,
     },
+    {
+    title: "All Product",
+    url: "#",
+    icon: Settings2,
+    items: [
+      { title: "Pending Product", url: "/dashboard/admin/pendingProduct" },
+      { title: "Approved Product", url: "/dashboard/admin/approvedProduct" },
+      { title: "Rejected Product", url: "/dashboard/admin/rejectedProduct" },
+    ],
+  },
   ],
 
   vendor: [
@@ -66,18 +76,18 @@ const allNavItems = {
     
   ],
 
-  customer: [
-    {
-      title: "Dashboard",
-      url: "/dashboard",
-      icon: SquareTerminal,
-    },
-    {
-      title: "My Orders",
-      url: "/dashboard/customer/myOrders",
-      icon: ClipboardList,
-    },
-  ],
+  // customer: [
+  //   {
+  //     title: "Dashboard",
+  //     url: "/dashboard",
+  //     icon: SquareTerminal,
+  //   },
+  //   {
+  //     title: "My Orders",
+  //     url: "/dashboard/customer/myOrders",
+  //     icon: ClipboardList,
+  //   },
+  // ],
 
   rider: [
     {

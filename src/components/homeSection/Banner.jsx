@@ -1,8 +1,20 @@
 "use client"
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+
+import { useState } from 'react';
 import { FiSearch, FiMapPin } from 'react-icons/fi';
 
 const Banner = () => {
+    const [location, setLocation] = useState("");
+    const router = useRouter();
+
+    const handleSearch = (e) => {
+        if (location.trim()) {
+            router.push(`/restaurants/allProduct?location=${location}`)
+        }
+    }
+
     return (
         <div className="relative w-full min-h-[550px] bg-[#f7f7f7] overflow-hidden">
             {/* Content Container - Always at top */}
@@ -32,10 +44,13 @@ const Banner = () => {
                                     </div>
                                     <input
                                         type="text"
+                                        defaultValue={location}
+                                        onChange={(e)=> setLocation(e.target.value)}
                                         placeholder="Where should we deliver?"
                                         className="w-full py-3 md:py-4 px-3 md:px-4 focus:outline-none text-gray-700 placeholder-gray-400 text-sm md:text-base" />
 
                                     <button
+                                        onClick={handleSearch}
                                         className="bg-[#ff2e87] hidden lg:flex hover:bg-[#e02679] text-white font-bold py-3 px-6 items-center transition duration-200">
                                         <FiSearch className="mr-2" />
                                         Search

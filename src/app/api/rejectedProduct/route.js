@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server";
-import connectionToDatabase from "../../../../lib/db"
+import connectionToDatabase from "../../../../lib/db";
 import { Product } from "../../../../models/addProduct";
+
+
 
 export async function GET(){
     try{
         await connectionToDatabase();
-        const allPendingProduct = await Product.find({status: "pending"});
+        const allPendingProduct = await Product.find({status: "rejected"});
         // console.log("pending product", allPendingProduct)
         return NextResponse.json(allPendingProduct, {status: 200})
         
@@ -14,4 +16,3 @@ export async function GET(){
         NextResponse.json({message: "Something went wrong"}, {status: 500})
     }
 }
-

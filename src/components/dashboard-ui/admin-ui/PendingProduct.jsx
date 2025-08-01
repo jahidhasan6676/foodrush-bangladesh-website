@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Image from 'next/image';
 import React from 'react';
+import { toast } from 'react-toastify';
 
 const PendingProduct = () => {
 
@@ -14,8 +15,20 @@ const PendingProduct = () => {
             return res.data;
         }
     })
+
+    const handleStatusChange = async(id,newStatus) =>{
+        console.log("product id", id)
+        console.log("new status", newStatus)
+        const res = await axios.patch(`/api/pendingProduct/${id}`, {status: newStatus})
+        console.log("update status", res.data);
+        if(res.status === 200){
+            toast.success("Product status successfully updated")
+            refetch();
+        }
+
+    }
     if (isLoading) return <h2>Loading data...</h2>
-    console.log("pending data", allPendingProducts)
+    //console.log("pending data", allPendingProducts)
     return (
         <div className='w-11/12 mx-auto py-10'>
     
@@ -28,7 +41,7 @@ const PendingProduct = () => {
                         <th className="p-2">Product Name</th>
                         <th className="p-2">Vendor Name</th>
                         <th className="p-2">Price</th>
-                        <th className="p-2">Location</th>
+                        <th className="p-2">Status</th>
                         <th className="p-2">Actions</th>
                     </tr>
                 </thead>
@@ -42,15 +55,13 @@ const PendingProduct = () => {
                             <td className="p-2">{product.productName}</td>
                             <td className="p-2">{product.ownerInfo.name}</td>
                             <td className="p-2">{product.price}TK.</td>
-                            <td className="p-2">{product.division}</td>
+                            <td className="p-2">{product.status}</td>
                           
                             <td className="p-2 flex gap-2">
-                                <button  className="bg-green-500 text-white px-3 py-1 rounded"
-                                >
+                                <button onClick={()=>handleStatusChange(product?._id, "approved")}  className="bg-green-500 text-white px-3 py-1 rounded cursor-pointer">
                                     Approve
                                 </button>
-                                <button     className="bg-red-500 text-white px-3 py-1 rounded"
-                                >
+                                <button onClick={()=>handleStatusChange(product?._id, "rejected")} className="bg-red-500 text-white px-3 py-1 rounded cursor-pointer">
                                     Reject
                                 </button>
                             </td>

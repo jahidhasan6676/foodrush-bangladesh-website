@@ -50,9 +50,9 @@ const allNavItems = {
     url: "#",
     icon: Settings2,
     items: [
-      { title: "Pending Product", url: "/dashboard/admin/pendingProduct" },
-      { title: "Approved Product", url: "/dashboard/admin/approvedProduct" },
-      { title: "Rejected Product", url: "/dashboard/admin/rejectedProduct" },
+      { title: "Pending Product", url: "/dashboard/admin/pendingProducts" },
+      { title: "Approved Product", url: "/dashboard/admin/approvedProducts" },
+      { title: "Rejected Product", url: "/dashboard/admin/rejectedProducts" },
     ],
   },
   ],

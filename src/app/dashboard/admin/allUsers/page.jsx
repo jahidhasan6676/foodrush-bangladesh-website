@@ -1,7 +1,7 @@
-import AllUsers from '@/components/dashboard-ui/admin-ui/AllUsers';
 import React from 'react';
+import AllUsers from "@/components/dashboard-ui/admin-ui/AllUsers"
 
-const AllUsersPage = () => {
+const AllUserPage = () => {
     return (
         <div>
             <AllUsers/>
@@ -9,4 +9,4 @@ const AllUsersPage = () => {
     );
 };
 
-export default AllUsersPage;
+export default AllUserPage;

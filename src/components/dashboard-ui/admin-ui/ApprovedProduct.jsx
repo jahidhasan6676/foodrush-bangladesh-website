@@ -7,7 +7,7 @@ import React from 'react';
 const ApprovedProduct = () => {
     // all approve product get from database
     const { data: allApprovedProducts, isLoading, refetch } = useQuery({
-        queryKey: ["pendingProducts"],
+        queryKey: ["approvedProducts"],
         queryFn: async () => {
             const res = await axios.get("/api/approvedProduct")
             return res.data;

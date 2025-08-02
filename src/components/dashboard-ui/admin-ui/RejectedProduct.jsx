@@ -7,7 +7,7 @@ import React from 'react';
 const RejectedProduct = () => {
     // all approve product get from database
     const { data: allRejectedProducts, isLoading, refetch } = useQuery({
-        queryKey: ["pendingProducts"],
+        queryKey: ["rejectedProducts"],
         queryFn: async () => {
             const res = await axios.get("/api/rejectedProduct")
             return res.data;

@@ -3,6 +3,7 @@ import DeliveryLocation from "@/components/homeSection/DeliveryLocation";
 import FeatureSection from "@/components/homeSection/FeatureSection";
 import FoodRushOverview from "@/components/homeSection/FoodRushOverview";
 import PartnershipSection from "@/components/homeSection/PartnershipSection";
+import Slider from "@/components/Slider";
 
 
 
@@ -11,6 +12,7 @@ export default function Home() {
     <div>
       <Banner/>
       <PartnershipSection/>
+      {/* <Slider/> */}
       <FeatureSection/>
       <DeliveryLocation/>
       <FoodRushOverview/>

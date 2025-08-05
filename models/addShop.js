@@ -2,18 +2,18 @@ import mongoose from "mongoose";
 
 const shopSchema = new mongoose.Schema(
   {
-    
+
     shopName: {
       type: String,
       required: true,
       trim: true,
     },
-   
+
     discount: {
       type: Number,
       default: 0,
     },
-   
+
     deliveryCharge: {
       type: Number,
       default: 0,
@@ -34,12 +34,17 @@ const shopSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-   
+
     shopPhoto: {
       type: String,
       required: true,
     },
-    
+
+    shopStatus: {
+      type: String,
+      default: "pending"
+    },
+
     ownerInfo: {
       name: { type: String },
       email: { type: String },

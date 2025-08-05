@@ -16,7 +16,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import jokerImage from "../../../public/joker.png"
 import Link from 'next/link';
 
-const AllProduct = () => {
+const AllRestaurants = () => {
     const swiperRef = useRef(null);
     const searchParams = useSearchParams();
     const location = searchParams.get("location");
@@ -24,7 +24,6 @@ const AllProduct = () => {
     const [filters, setFilters] = useState({
         sortBy: "default",
         category: "",
-        priceRange: 2000,
         searchQuery: ""
     });
 
@@ -32,7 +31,6 @@ const AllProduct = () => {
         return (
             filters.sortBy !== "default" ||
             filters.category !== "" ||
-            filters.priceRange !== 2000 ||
             filters.searchQuery.trim() !== ""
         );
     };
@@ -42,24 +40,23 @@ const AllProduct = () => {
         setFilters({
             sortBy: "default",
             category: "",
-            priceRange: 2000,
             searchQuery: ""
         });
     };
 
-    const { data: searchProduct, isLoading, refetch } = useQuery({
-        queryKey: ["searchProduct", location,],
+    const { data: searchRestaurant, isLoading, refetch } = useQuery({
+        queryKey: ["searchRestaurant", location,],
         queryFn: async () => {
-            const res = await axios.get(`/api/products/search?location=${location}`)
+            const res = await axios.get(`/api/restaurant/search?location=${location}`)
             return res.data;
         }
     });
 
     // all approve product get from database
-    const { data: allRestaurantsProducts } = useQuery({
-        queryKey: ["restaurantProducts", filters],
+    const { data: allRestaurant } = useQuery({
+        queryKey: ["allRestaurant", filters],
         queryFn: async () => {
-            const res = await axios.get(`/api/products/allRestaurantProduct?sortBy=${filters.sortBy}&category=${filters.category}&maxPrice=${filters.priceRange}&searchQuery=${filters.searchQuery}`)
+            const res = await axios.get(`/api/restaurant/allRestaurants?sortBy=${filters.sortBy}&category=${filters.category}&searchQuery=${filters.searchQuery}`)
             return res.data;
         }
     });
@@ -86,7 +83,7 @@ const AllProduct = () => {
         </div>
     );
 
-    //console.log("search product:", searchProduct)
+    //console.log("search product:", searchRestaurant)
 
     return (
         <div className="w-11/12 mx-auto flex flex-col xl:flex-row gap-10 xl:14 my-10">
@@ -102,7 +99,7 @@ const AllProduct = () => {
                 {isAnyFilterActive() && (
                     <button
                         onClick={resetFilters}
-                        className=" text-[16px] font-medium cursor-pointer xl:hidden">
+                        className=" text-[16px] font-medium cursor-pointer block xl:hidden">
                         Clear All
                     </button>
                 )}
@@ -114,17 +111,19 @@ const AllProduct = () => {
                     <h2 className="text-xl font-semibold">Filters</h2>
                     <button
                         onClick={() => setShowMobileFilters(false)}
-                        className="lg:hidden text-gray-500 hover:text-red-500"
+                        className="block xl:hidden text-gray-500 hover:text-red-500"
                     >
                         <IoClose size={24} />
                     </button>
 
                     {isAnyFilterActive() && (
-                        <button
-                            onClick={resetFilters}
-                            className="text-[16px] font-medium text-gray-700 cursor-pointer hidden xl:block">
-                            Clear All
-                        </button>
+                        <div className="mt-4 hidden xl:block">
+                            <button
+                                onClick={resetFilters}
+                                className="text-[16px] font-medium text-gray-700 cursor-pointer">
+                                Clear All
+                            </button>
+                        </div>
                     )}
                 </div>
 
@@ -270,7 +269,7 @@ const AllProduct = () => {
                     </ul>
                 </div>
 
-                <div className="mb-6">
+                {/* <div className="mb-6">
                     <h3 className="text-lg font-medium mb-3">Price Range (0 - {filters.priceRange} ₹)</h3>
                     <div className="relative">
                         <input
@@ -287,7 +286,7 @@ const AllProduct = () => {
                             <span>2000</span>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </aside>
 
             {/* Main Content */}
@@ -370,7 +369,7 @@ const AllProduct = () => {
                                 </button>
                             </span>
                         )}
-                        {filters.priceRange < 2000 && (
+                        {/* {filters.priceRange < 2000 && (
                             <span className="bg-gray-100 px-3 py-1 rounded-full text-sm flex items-center gap-1">
                                 Max ₹{filters.priceRange}
                                 <button
@@ -391,14 +390,14 @@ const AllProduct = () => {
                                     <IoClose size={16} />
                                 </button>
                             </span>
-                        )}
+                        )} */}
                     </div>
                 )}
 
                 {/* Your Daily Deals */}
                 <section className="mb-10 ">
                     <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">Your Searching Deals</h2>
-                    {searchProduct?.length === 0 ? (
+                    {searchRestaurant?.length === 0 ? (
                         <div className="text-center py-10">
                             <p className="text-gray-500">No products found matching your filters</p>
                         </div>
@@ -435,15 +434,15 @@ const AllProduct = () => {
                                     1024: { slidesPerView: 3 },
                                 }} >
 
-                                {searchProduct?.map((food) => (
-                                    
-                                        <SwiperSlide key={food?._id}>
-                                            <Link href={`/restaurants/allProduct/${food?._id}`} >
+                                {searchRestaurant?.map((restaurant) => (
+
+                                    <SwiperSlide key={restaurant?._id}>
+                                        <Link href={`/restaurants/AllRestaurants/${restaurant?._id}`} >
                                             <div className="rounded-lg border overflow-hidden">
                                                 <div className="relative group  overflow-hidden">
                                                     <Image
-                                                        src={food?.photo}
-                                                        alt={food?.productName}
+                                                        src={restaurant?.shopPhoto}
+                                                        alt={restaurant?.shopName}
                                                         width={400}
                                                         height={190}
                                                         className="w-full h-[190px] object-cover transition-transform duration-500 group-hover:scale-105"
@@ -451,13 +450,13 @@ const AllProduct = () => {
                                                     <div className="absolute top-2 left-2 flex gap-1 items-center bg-[#e21b70] text-white px-2 py-1 text-xs rounded-md font-bold">
                                                         <CiDiscount1 className='text-white text-lg' />FOODRUSH
                                                     </div>
-                                                    {food?.discountPrice ? (
+                                                    {restaurant?.discount ? (
                                                         <div className="absolute top-10 left-2 flex gap-1 items-center bg-[#e21b70] text-white px-2 py-1 text-xs rounded-md font-semibold">
-                                                            <CiDiscount1 className='text-white text-lg' /> {food?.discountPrice} tk off
+                                                            <CiDiscount1 className='text-white text-lg' /> {restaurant?.discount} tk off
                                                         </div>
                                                     ) : ""}
                                                     <div className="absolute bottom-2 right-2 bg-white text-sm   rounded-full px-2 py-1 flex items-center gap-1 ">
-                                                        <Clock size={16} /> {food?.deliveryTime} min
+                                                        <Clock size={16} /> {restaurant?.deliveryTime} min
                                                     </div>
                                                     <button className="absolute top-2 right-2 bg-white p-1 rounded-full">
                                                         <Heart size={16} className="text-gray-500 hover:text-[#e21b70]" />
@@ -465,33 +464,21 @@ const AllProduct = () => {
                                                 </div>
                                                 <div className="p-4">
                                                     <div className='flex justify-between'>
-                                                        <h3 className="font-bold text-[18px] text-gray-800 ">{food?.productName}</h3>
+                                                        <h3 className="font-bold text-[18px] text-gray-800 ">{restaurant?.shopName}</h3>
                                                         <div className="flex items-center gap-1 text-gray-800  px-2  rounded">
-                                                            <Star size={16} className='text-[#ffb313]' /> {food?.rating || 0} ({food?.reviews || 0})
+                                                            <Star size={16} className='text-[#ffb313]' /> {restaurant?.rating || 0} ({restaurant?.reviews || 0})
                                                         </div>
                                                     </div>
-                                                    <p className="text-gray-800 text-lg mb-2">{food?.category}</p>
-                                                    <div className="flex items-center gap-2">
-                                                        {food?.discountPrice ? (
-                                                            <>
-                                                                <span className="font-semibold text-gray-700">
-                                                                    {food?.price - food?.discountPrice} tk
-                                                                </span>
-                                                                <span className="text-gray-500 text-sm ">
-                                                                    {food?.price} tk
-                                                                </span>
-                                                            </>
-                                                        ) : (
-                                                            <span className="font-semibold text-gray-700">
-                                                                {food?.price} tk
-                                                            </span>
-                                                        )}
-                                                    </div>
+
+                                                    <p className="text-gray-800 text-lg mb-2">{restaurant?.category}</p>
+
+                                                    <p className="text-gray-800 text-lg mb-2">{restaurant?.deliveryCharge} tk</p>
+
                                                 </div>
                                             </div>
-                                             </Link>
-                                        </SwiperSlide>
-                                   
+                                        </Link>
+                                    </SwiperSlide>
+
                                 ))}
                             </Swiper>
                         </div>
@@ -502,66 +489,54 @@ const AllProduct = () => {
                 {/* all restaurants products card */}
                 <section className="mb-10">
                     <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">All Restaurants</h2>
-                    {allRestaurantsProducts?.length === 0 ? (
+                    {allRestaurant?.length === 0 ? (
                         <div className="text-center py-10">
                             <p className="text-gray-500">No restaurants found matching your filters</p>
                         </div>
                     ) : (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {allRestaurantsProducts?.map((food) => (
-                                <div key={food?._id}>
-                                    <Link href={`/restaurants/allProduct/${food?._id}`} >
-                                    <div className="rounded-lg border overflow-hidden">
-                                        <div className="relative group  overflow-hidden">
-                                            <Image
-                                                src={food?.photo}
-                                                alt={food?.productName}
-                                                width={400}
-                                                height={190}
-                                                className="w-full h-[190px] object-cover transition-transform duration-500 group-hover:scale-105"
-                                            />
-                                            <div className="absolute top-2 left-2 flex gap-1 items-center bg-[#e21b70] text-white px-2 py-1 text-xs rounded-md font-bold">
-                                                <CiDiscount1 className='text-white text-lg' />FOODRUSH
-                                            </div>
-                                            {food?.discountPrice ? (
-                                                <div className="absolute top-10 left-2 flex gap-1 items-center bg-[#e21b70] text-white px-2 py-1 text-xs rounded-md font-semibold">
-                                                    <CiDiscount1 className='text-white text-lg' /> {food?.discountPrice} tk off
+                            {allRestaurant?.map((restaurant) => (
+                                <div key={restaurant?._id}>
+                                    <Link href={`/restaurants/allProduct/${restaurant?._id}`} >
+                                        <div className="rounded-lg border overflow-hidden">
+                                            <div className="relative group  overflow-hidden">
+                                                <Image
+                                                    src={restaurant?.shopPhoto}
+                                                    alt={restaurant?.shopName}
+                                                    width={400}
+                                                    height={190}
+                                                    className="w-full h-[190px] object-cover transition-transform duration-500 group-hover:scale-105"
+                                                />
+                                                <div className="absolute top-2 left-2 flex gap-1 items-center bg-[#e21b70] text-white px-2 py-1 text-xs rounded-md font-bold">
+                                                    <CiDiscount1 className='text-white text-lg' />FOODRUSH
                                                 </div>
-                                            ) : ""}
-                                            <div className="absolute bottom-2 right-2 bg-white text-sm   rounded-full px-2 py-1 flex items-center gap-1 ">
-                                                <Clock size={16} /> {food?.deliveryTime} min
-                                            </div>
-                                            <button className="absolute top-2 right-2 bg-white p-1 rounded-full">
-                                                <Heart size={16} className="text-gray-500 hover:text-[#e21b70]" />
-                                            </button>
-                                        </div>
-                                        <div className="p-4">
-                                            <div className='flex justify-between'>
-                                                <h3 className="font-bold text-[18px] text-gray-800 ">{food?.productName}</h3>
-                                                <div className="flex items-center gap-1 text-gray-800  px-2  rounded">
-                                                    <Star size={16} className='text-[#ffb313]' /> {food?.rating || 0} ({food?.reviews || 0})
+                                                {restaurant?.discount ? (
+                                                    <div className="absolute top-10 left-2 flex gap-1 items-center bg-[#e21b70] text-white px-2 py-1 text-xs rounded-md font-semibold">
+                                                        <CiDiscount1 className='text-white text-lg' /> {restaurant?.discount} tk off
+                                                    </div>
+                                                ) : ""}
+                                                <div className="absolute bottom-2 right-2 bg-white text-sm   rounded-full px-2 py-1 flex items-center gap-1 ">
+                                                    <Clock size={16} /> {restaurant?.deliveryTime} min
                                                 </div>
+                                                <button className="absolute top-2 right-2 bg-white p-1 rounded-full">
+                                                    <Heart size={16} className="text-gray-500 hover:text-[#e21b70]" />
+                                                </button>
                                             </div>
-                                            <p className="text-gray-800 text-lg mb-2">{food?.category}</p>
-                                            <div className="flex items-center gap-2">
-                                                {food?.discountPrice ? (
-                                                    <>
-                                                        <span className="font-semibold text-gray-700">
-                                                            {food?.price - food?.discountPrice} tk
-                                                        </span>
-                                                        <span className="text-gray-500 text-sm ">
-                                                            {food?.price} tk
-                                                        </span>
-                                                    </>
-                                                ) : (
-                                                    <span className="font-semibold text-gray-700">
-                                                        {food?.price} tk
-                                                    </span>
-                                                )}
+                                            <div className="p-4">
+                                                <div className='flex justify-between'>
+                                                    <h3 className="font-bold text-[18px] text-gray-800 ">{restaurant?.shopName}</h3>
+                                                    <div className="flex items-center gap-1 text-gray-800  px-2  rounded">
+                                                        <Star size={16} className='text-[#ffb313]' /> {restaurant?.rating || 0} ({restaurant?.reviews || 0})
+                                                    </div>
+                                                </div>
+
+                                                <p className="text-gray-800 text-lg mb-2">{restaurant?.category}</p>
+
+                                                <p className="text-gray-800 text-lg mb-2">{restaurant?.deliveryCharge} tk</p>
+
                                             </div>
                                         </div>
-                                    </div>
-                                </Link>
+                                    </Link>
                                 </div>
 
                             ))}
@@ -573,4 +548,4 @@ const AllProduct = () => {
     );
 };
 
-export default AllProduct;
+export default AllRestaurants;

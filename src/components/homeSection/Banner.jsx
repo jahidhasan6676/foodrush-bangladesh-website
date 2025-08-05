@@ -11,7 +11,7 @@ const Banner = () => {
 
     const handleSearch = (e) => {
         if (location.trim()) {
-            router.push(`/restaurants/allProduct?location=${location}`)
+            router.push(`/restaurants/allRestaurant?location=${location}`)
         }
     }
 

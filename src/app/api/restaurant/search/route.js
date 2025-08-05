@@ -1,7 +1,8 @@
 // search/route.js
 import { NextResponse } from "next/server";
+import { Shop } from "../../../../../models/addShop";
 import connectionToDatabase from "../../../../../lib/db";
-import { Product } from "../../../../../models/addProduct";
+
 
 export async function GET(req) {
     try {
@@ -9,12 +10,11 @@ export async function GET(req) {
         const { searchParams } = new URL(req.url);
         const location = searchParams.get("location");
 
-        const result = await Product.find({
-            status: "approved",
+        const result = await Shop.find({
+            shopStatus: "approved",
             $or: [
-                { division: { $regex: location, $options: "i" } },
-                { district: { $regex: location, $options: "i" } },
-                { area: { $regex: location, $options: "i" } },
+                { location: { $regex: location, $options: "i" } },
+                { address: { $regex: location, $options: "i" } },
             ],
         })
 

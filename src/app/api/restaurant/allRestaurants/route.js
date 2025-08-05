@@ -1,7 +1,8 @@
 // allRestaurantProduct/route.js
 import { NextResponse } from "next/server";
 import connectionToDatabase from "../../../../../lib/db";
-import { Product } from "../../../../../models/addProduct";
+import { Shop } from "../../../../../models/addShop";
+
 
 export async function GET(req) {
     try {
@@ -10,25 +11,22 @@ export async function GET(req) {
 
         const sortBy = searchParams.get("sortBy") || "default";
         const category = searchParams.get("category") || "";
-        const maxPrice = searchParams.get("maxPrice") || 2000;
+        // const maxPrice = searchParams.get("maxPrice") || 2000;
         const searchQuery = searchParams.get("searchQuery") || "";
 
 
         // Base query
-        let query = { status: "approved" };
+        let query = { shopStatus: "approved" };
 
         // Add category filter if specified
         if (category) {
             query.category = { $regex: new RegExp(category, "i") };
         }
-
-        // Price filter
-        query.price = { $lte: parseInt(maxPrice) };
        
 
         // Add search query filter if specified
         if (searchQuery) {
-            query.productName = { $regex: new RegExp(searchQuery, "i") };
+            query.shopName = { $regex: new RegExp(searchQuery, "i") };
         }
 
         // Sort logic
@@ -37,7 +35,7 @@ export async function GET(req) {
             sortOption = { deliveryTime: 1 }; // Sort by delivery time ascending
         }
 
-        const allRestaurantProduct = await Product.find(query).sort(sortOption);
+        const allRestaurantProduct = await Shop.find(query).sort(sortOption);
         return NextResponse.json(allRestaurantProduct, { status: 200 });
 
     } catch (error) {

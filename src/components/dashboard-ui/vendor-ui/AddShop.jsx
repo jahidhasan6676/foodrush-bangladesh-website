@@ -7,13 +7,13 @@ import { toast } from 'react-toastify';
 
 const AddShop = () => {
 
-      const {data: session} = useSession();
+    const { data: session } = useSession();
 
-    const handleAddShop = async(e) => {
+    const handleAddShop = async (e) => {
         e.preventDefault();
 
         const form = e.target;
-        
+
         const shopName = form.shopName.value;
         const discount = form.discount.value;
         const deliveryCharge = form.deliveryCharge.value;
@@ -25,7 +25,6 @@ const AddShop = () => {
         const shopPhoto = await imageUploadToImgbb(image);
 
         const shopData = {
-            
             shopName,
             discount,
             deliveryCharge,
@@ -34,6 +33,7 @@ const AddShop = () => {
             location,
             address,
             shopPhoto,
+            shopStatus: "pending",
             ownerInfo: {
                 name: session?.user?.name,
                 email: session?.user?.email,
@@ -42,17 +42,18 @@ const AddShop = () => {
         }
         //console.log("product data:", productData)
 
-        try{
+        try {
             const res = await axios.post("/api/addShop", shopData)
-            console.log("product added:", res.data);
-            toast.success(`${res?.data?.data?.shopName} Successfully Added`)
+            console.log("product added:", res.data.data);
+            toast.success(`Shop Details Successfully Added`)
             form.reset();
-        }catch(error){
+
+        } catch (error) {
             //console.log("error adding shop:",error)
             toast.error("Something Wrong")
         }
 
-        
+
     };
     return (
         <div className="w-11/12 max-w-5xl mx-auto py-8">
@@ -61,7 +62,7 @@ const AddShop = () => {
                 <p className="text-gray-500 text-center mb-8">Fill in the details of your new product</p>
 
                 <form onSubmit={handleAddShop} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    
+
 
                     {/* shop name */}
                     <div className="space-y-2">
@@ -74,7 +75,7 @@ const AddShop = () => {
                             required
                         />
                     </div>
-                    
+
 
                     {/* Discount Price */}
                     <div className="space-y-2">
@@ -91,7 +92,7 @@ const AddShop = () => {
                     <div className="space-y-2">
                         <label className="block font-medium text-gray-700">Delivery Time (minutes)</label>
                         <input
-                            type="number"
+
                             name="deliveryTime"
                             className="w-full p-3 border border-gray-200 rounded-lg focus:ring-0"
                             placeholder="e.g. 30 - 40 min"
@@ -127,7 +128,7 @@ const AddShop = () => {
                             <option value="cake">Coffee</option>
                         </select>
                     </div>
-                    
+
 
                     {/* shop location */}
                     <div className="space-y-2">

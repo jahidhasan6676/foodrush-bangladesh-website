@@ -1,3 +1,4 @@
+import { NextResponse } from "next/server";
 import connectionToDatabase from "../../../../lib/db";
 import { Shop } from "../../../../models/addShop";
 
@@ -10,6 +11,7 @@ export async function POST(req) {
         await connectionToDatabase();
 
         const shopProduct = await Shop.create(body)
+        //console.log("shop product", shopProduct)
         return NextResponse.json({ message: "Shop Save Successfully", data: shopProduct })
     } catch (error) {
         //console.log("Error Saving data", error);

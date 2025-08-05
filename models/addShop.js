@@ -1,31 +1,19 @@
 import mongoose from "mongoose";
 
-const productSchema = new mongoose.Schema(
+const shopSchema = new mongoose.Schema(
   {
-    productName: {
-      type: String,
-      required: true,
-      trim: true,
-    },
+    
     shopName: {
       type: String,
       required: true,
       trim: true,
     },
-    price: {
-      type: Number,
-      required: true,
-      min: 0,
-    },
-    discountPrice: {
+   
+    discount: {
       type: Number,
       default: 0,
     },
-    quantity: {
-      type: Number,
-      required: true,
-      min: 0,
-    },
+   
     deliveryCharge: {
       type: Number,
       default: 0,
@@ -38,30 +26,20 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    division: {
+    location: {
       type: String,
       required: true,
     },
-    district: {
+    address: {
       type: String,
       required: true,
     },
-    area: {
+   
+    shopPhoto: {
       type: String,
       required: true,
     },
-    description: {
-      type: String,
-      default: "",
-    },
-    photo: {
-      type: String,
-      required: true,
-    },
-    status: {
-      type: String,
-      default: "pending"
-    },
+    
     ownerInfo: {
       name: { type: String },
       email: { type: String },
@@ -73,4 +51,4 @@ const productSchema = new mongoose.Schema(
   }
 );
 
-export const Product = mongoose.models.Product || mongoose.model("Product", productSchema)
+export const Shop = mongoose.models.Shop || mongoose.model("Shop", shopSchema)

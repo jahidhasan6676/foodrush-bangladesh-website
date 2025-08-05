@@ -1,48 +1,39 @@
-"use client";
+"use client"
+import { imageUploadToImgbb } from '@/app/api/utils/imageUpload';
+import axios from 'axios';
+import { useSession } from 'next-auth/react';
+import React from 'react';
+import { toast } from 'react-toastify';
 
-import { imageUploadToImgbb } from "@/app/api/utils/imageUpload";
-import axios from "axios";
-import { useSession } from "next-auth/react";
-import { useState } from "react";
-import { toast } from "react-toastify";
+const AddShop = () => {
 
-export default function AddProduct() {
-    //const  [selectImage,setSelectImage] = useState();
-    const {data: session} = useSession();
-    const handleAddProductSubmit = async(e) => {
+      const {data: session} = useSession();
+
+    const handleAddShop = async(e) => {
         e.preventDefault();
 
         const form = e.target;
-        const productName = form.productName.value;
-        const shopName = fromTheme.shopName.value;
-        const price = form.price.value;
-        const discountPrice = form.discountPrice.value;
-        const quantity = form.quantity.value;
+        
+        const shopName = form.shopName.value;
+        const discount = form.discount.value;
         const deliveryCharge = form.deliveryCharge.value;
         const deliveryTime = form.deliveryTime.value;
         const category = form.category.value;
-        const division = form.division.value;
-        const district = form.district.value;
-        const area = form.area.value;
-        const description = form.description.value;
+        const location = form.location.value;
+        const address = form.address.value;
         const image = form.image.files[0];
-        const photo = await imageUploadToImgbb(image);
+        const shopPhoto = await imageUploadToImgbb(image);
 
-        const productData = {
-            productName,
+        const shopData = {
+            
             shopName,
-            price,
-            discountPrice,
-            quantity,
+            discount,
             deliveryCharge,
             deliveryTime,
             category,
-            division,
-            district,
-            area,
-            description,
-            photo,
-            status: "pending",
+            location,
+            address,
+            shopPhoto,
             ownerInfo: {
                 name: session?.user?.name,
                 email: session?.user?.email,
@@ -52,36 +43,25 @@ export default function AddProduct() {
         //console.log("product data:", productData)
 
         try{
-            const res = await axios.post("/api/addProduct", productData)
+            const res = await axios.post("/api/addShop", shopData)
             console.log("product added:", res.data);
-            toast.success(`${res?.data?.data?.productName} Successfully Added`)
+            toast.success(`${res?.data?.data?.shopName} Successfully Added`)
             form.reset();
         }catch(error){
-            console.log("error adding product:",error)
+            //console.log("error adding shop:",error)
             toast.error("Something Wrong")
         }
 
         
     };
-
     return (
         <div className="w-11/12 max-w-5xl mx-auto py-8">
             <div className="bg-white rounded-xl shadow-sm p-6">
                 <h2 className="text-3xl font-bold mb-2 text-gray-800 text-center">Add New Product</h2>
                 <p className="text-gray-500 text-center mb-8">Fill in the details of your new product</p>
 
-                <form onSubmit={handleAddProductSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Product Name */}
-                    <div className="space-y-2">
-                        <label className="block font-medium text-gray-700">Product Name</label>
-                        <input
-                            type="text"
-                            name="productName"
-                            className="w-full p-3 border border-gray-200 rounded-lg focus:ring-0"
-                            placeholder="e.g. Chicken Burger"
-                            required
-                        />
-                    </div>
+                <form onSubmit={handleAddShop} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
 
                     {/* shop name */}
                     <div className="space-y-2">
@@ -94,39 +74,16 @@ export default function AddProduct() {
                             required
                         />
                     </div>
-
-                    {/* Price */}
-                    <div className="space-y-2">
-                        <label className="block font-medium text-gray-700">Price (৳)</label>
-                        <input
-                            type="number"
-                            name="price"
-                            className="w-full p-3 border border-gray-200 rounded-lg focus:ring-0"
-                            placeholder="e.g. 250"
-                            required
-                        />
-                    </div>
+                    
 
                     {/* Discount Price */}
                     <div className="space-y-2">
-                        <label className="block font-medium text-gray-700">Discount Price (৳) <span className="text-gray-400 text-sm">(optional)</span></label>
+                        <label className="block font-medium text-gray-700">Discount <span className="text-gray-400 text-sm">(optional)</span></label>
                         <input
                             type="number"
-                            name="discountPrice"
+                            name="discount"
                             className="w-full p-3 border border-gray-200 rounded-lg focus:ring-0"
                             placeholder="e.g. 10%"
-                        />
-                    </div>
-
-                    {/* Quantity */}
-                    <div className="space-y-2">
-                        <label className="block font-medium text-gray-700">Available Quantity</label>
-                        <input
-                            type="number"
-                            name="quantity"
-                            className="w-full p-3 border border-gray-200 rounded-lg focus:ring-0"
-                            placeholder="e.g. 50"
-                            required
                         />
                     </div>
 
@@ -155,7 +112,7 @@ export default function AddProduct() {
 
                     {/* Category */}
                     <div className="space-y-2">
-                        <label className="block font-medium text-gray-700">Main Category</label>
+                        <label className="block font-medium text-gray-700">Food Category</label>
                         <select
                             name="category"
                             className="w-full p-3 border border-gray-200 rounded-lg focus:ring-0 appearance-none" required >
@@ -170,30 +127,14 @@ export default function AddProduct() {
                             <option value="cake">Coffee</option>
                         </select>
                     </div>
+                    
 
-                    {/* Location Division */}
+                    {/* shop location */}
                     <div className="space-y-2">
-                        <label className="block font-medium text-gray-700">Division</label>
-                        <select
-                            name="division"
-                            className="w-full p-3 border border-gray-200 rounded-lg focus:ring-0 appearance-none"  required >
-                            <option value="">Select Division</option>
-                            <option value="dhaka">Dhaka</option>
-                            <option value="chattogram">Chattogram</option>
-                            <option value="khulna">Khulna</option>
-                            <option value="khulna">Rajshahi</option>
-                            <option value="khulna">Barishal</option>
-                            <option value="khulna">Sylhet</option>
-                            <option value="khulna">Rangpur</option>
-                        </select>
-                    </div>
-
-                    {/* District */}
-                    <div className="space-y-2">
-                        <label className="block font-medium text-gray-700">District</label>
+                        <label className="block font-medium text-gray-700">Shop Location</label>
                         <input
                             type="text"
-                            name="district"
+                            name="location"
                             className="w-full p-3 border border-gray-200 rounded-lg focus:ring-0"
                             placeholder="e.g. Dhaka"
                             required
@@ -202,31 +143,19 @@ export default function AddProduct() {
 
                     {/* Area */}
                     <div className="space-y-2">
-                        <label className="block font-medium text-gray-700">Area / Upazila</label>
+                        <label className="block font-medium text-gray-700">Shop Address</label>
                         <input
                             type="text"
-                            name="area"
+                            name="address"
                             className="w-full p-3 border border-gray-200 rounded-lg focus:ring-0"
                             placeholder="e.g. Mirpur"
                             required
                         />
                     </div>
 
-                    {/* Description */}
-                    <div className="md:col-span-2 space-y-2">
-                        <label className="block font-medium text-gray-700">Product Description</label>
-                        <textarea
-                            name="description"
-                            rows={4}
-                            className="w-full p-3 border border-gray-200 rounded-lg focus:ring-0"
-                            placeholder="Describe the product in detail..."
-                            required
-                        ></textarea>
-                    </div>
-
                     {/* Image Upload */}
                     <div className="md:col-span-2 space-y-2">
-                        <label className="block font-medium text-gray-700">Product Images</label>
+                        <label className="block font-medium text-gray-700">Shop Images</label>
                         <div className="flex items-center justify-center w-full">
                             <label className="flex flex-col w-full h-32 border-2 border-dashed border-gray-300 hover:border-gray-400 rounded-lg cursor-pointer transition">
                                 <div className="flex flex-col items-center justify-center pt-7">
@@ -246,11 +175,13 @@ export default function AddProduct() {
                             type="submit"
                             className="w-full bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition font-medium text-lg shadow-md hover:shadow-lg"
                         >
-                            Add Product
+                            Add Shop
                         </button>
                     </div>
                 </form>
             </div>
         </div>
     );
-}
+};
+
+export default AddShop;

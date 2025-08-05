@@ -4,17 +4,17 @@ import axios from 'axios';
 import { Clock, Heart, Star } from 'lucide-react';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { CiDiscount1 } from "react-icons/ci";
 import { FiFilter } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import { Navigation, Autoplay } from 'swiper/modules';
+import { Navigation } from 'swiper/modules';
 import 'swiper/css/navigation';
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import jokerImage from "../../../public/joker.png"
+import Link from 'next/link';
 
 const AllProduct = () => {
     const swiperRef = useRef(null);
@@ -27,12 +27,6 @@ const AllProduct = () => {
         priceRange: 2000,
         searchQuery: ""
     });
-
-    // Apply filters and refetch data
-    const applyFilters = () => {
-        refetch();
-        setShowMobileFilters(false);
-    };
 
     const isAnyFilterActive = () => {
         return (
@@ -85,17 +79,6 @@ const AllProduct = () => {
         }));
     };
 
-    // useEffect(() => {
-    //     const nextBtn = document.getElementById("nextBtn");
-    //     const prevBtn = document.getElementById("prevBtn");
-
-    //     if (swiperRef.current) {
-    //         nextBtn?.addEventListener("click", () => swiperRef.current.slideNext());
-    //         prevBtn?.addEventListener("click", () => swiperRef.current.slidePrev());
-    //     }
-    // }, []);
-
-
 
     if (isLoading) return (
         <div className="w-full h-screen flex justify-center items-center">
@@ -103,12 +86,12 @@ const AllProduct = () => {
         </div>
     );
 
-    console.log("search product:", searchProduct)
+    //console.log("search product:", searchProduct)
 
     return (
-        <div className="w-11/12 mx-auto flex flex-col lg:flex-row gap-10 xl:14 my-10">
+        <div className="w-11/12 mx-auto flex flex-col xl:flex-row gap-10 xl:14 my-10">
             {/* Mobile Filter Button */}
-            <div className='flex gap-2 items-center justify-between lg:hidden bg-red-600 text-white px-4 py-2 rounded-lg '>
+            <div className='flex gap-2 items-center justify-between xl:hidden bg-red-600 text-white px-4 py-2 rounded-lg '>
                 <button
                     onClick={() => setShowMobileFilters(true)}
                     className="flex items-center gap-2 w-4/5"
@@ -119,14 +102,14 @@ const AllProduct = () => {
                 {isAnyFilterActive() && (
                     <button
                         onClick={resetFilters}
-                        className=" text-[16px] font-medium cursor-pointer lg:hidden">
+                        className=" text-[16px] font-medium cursor-pointer xl:hidden">
                         Clear All
                     </button>
                 )}
             </div>
 
             {/* Left Sidebar - Filters */}
-            <aside className={`${showMobileFilters ? 'block' : 'hidden'} lg:block fixed lg:static inset-0 z-30 bg-white p-5 h-fit border lg:w-64 w-full overflow-y-auto`}>
+            <aside className={`${showMobileFilters ? 'block' : 'hidden'} xl:block fixed xl:static inset-0 z-30 bg-white p-5 h-fit border lg:w-64 w-full overflow-y-auto`}>
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-xl font-semibold">Filters</h2>
                     <button
@@ -139,7 +122,7 @@ const AllProduct = () => {
                     {isAnyFilterActive() && (
                         <button
                             onClick={resetFilters}
-                            className="text-[16px] font-medium text-gray-700 cursor-pointer hidden lg:block">
+                            className="text-[16px] font-medium text-gray-700 cursor-pointer hidden xl:block">
                             Clear All
                         </button>
                     )}
@@ -258,7 +241,7 @@ const AllProduct = () => {
                                 <span className="ml-2 text-gray-700">Juice</span>
                             </label>
                         </li>
-                        <li>
+                        <li className='mb-2'>
                             <label className="inline-flex items-center">
                                 <input
                                     type="radio"
@@ -269,6 +252,19 @@ const AllProduct = () => {
                                     onChange={handleInputChange}
                                 />
                                 <span className="ml-2 text-gray-700">Cake</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label className="inline-flex items-center">
+                                <input
+                                    type="radio"
+                                    className="form-radio text-red-500"
+                                    name="category"
+                                    value="Coffee"
+                                    checked={filters.category === "Coffee"}
+                                    onChange={handleInputChange}
+                                />
+                                <span className="ml-2 text-gray-700">Coffee</span>
                             </label>
                         </li>
                     </ul>
@@ -295,7 +291,7 @@ const AllProduct = () => {
             </aside>
 
             {/* Main Content */}
-            <main className="lg:w-[calc(100vw-426px)] ">
+            <main className="xl:w-[calc(100vw-426px)] ">
                 {/* Search Bar */}
                 <div className="relative mb-10">
                     <input
@@ -335,7 +331,7 @@ const AllProduct = () => {
                         {/* left content */}
                         <div className='flex items-center gap-6'>
                             <div>
-                                <Image src={jokerImage} alt='joker' width={80} height={80} className=''/>
+                                <Image src={jokerImage} alt='joker' width={80} height={80} className='' />
                             </div>
                             <div>
                                 <h1 className='text-[#c21d63] text-[24px] font-extrabold'>Time's Up...</h1>
@@ -344,7 +340,7 @@ const AllProduct = () => {
                         </div>
                         {/* right content */}
                         <div className='bg-[#c21d63] w-fit h-fit p-3 rounded-sm'>
-                                <h1 className='text-white text-sm font-medium'>00:00</h1>
+                            <h1 className='text-white text-sm font-medium'>00:00</h1>
                         </div>
                     </div>
                 </div>
@@ -437,62 +433,65 @@ const AllProduct = () => {
                                     640: { slidesPerView: 1 },
                                     768: { slidesPerView: 2 },
                                     1024: { slidesPerView: 3 },
-                                }}
-                            >
+                                }} >
 
                                 {searchProduct?.map((food) => (
-                                    <SwiperSlide key={food?._id}>
-                                        <div className="rounded-lg border overflow-hidden">
-                                            <div className="relative group  overflow-hidden">
-                                                <Image
-                                                    src={food?.photo}
-                                                    alt={food?.productName}
-                                                    width={400}
-                                                    height={190}
-                                                    className="w-full h-[190px] object-cover transition-transform duration-500 group-hover:scale-105"
-                                                />
-                                                <div className="absolute top-2 left-2 flex gap-1 items-center bg-[#e21b70] text-white px-2 py-1 text-xs rounded-md font-bold">
-                                                    <CiDiscount1 className='text-white text-lg' />FOODRUSH
-                                                </div>
-                                                {food?.discountPrice ? (
-                                                    <div className="absolute top-10 left-2 flex gap-1 items-center bg-[#e21b70] text-white px-2 py-1 text-xs rounded-md font-semibold">
-                                                        <CiDiscount1 className='text-white text-lg' /> {food?.discountPrice} tk off
+                                    
+                                        <SwiperSlide key={food?._id}>
+                                            <Link href={`/restaurants/allProduct/${food?._id}`} >
+                                            <div className="rounded-lg border overflow-hidden">
+                                                <div className="relative group  overflow-hidden">
+                                                    <Image
+                                                        src={food?.photo}
+                                                        alt={food?.productName}
+                                                        width={400}
+                                                        height={190}
+                                                        className="w-full h-[190px] object-cover transition-transform duration-500 group-hover:scale-105"
+                                                    />
+                                                    <div className="absolute top-2 left-2 flex gap-1 items-center bg-[#e21b70] text-white px-2 py-1 text-xs rounded-md font-bold">
+                                                        <CiDiscount1 className='text-white text-lg' />FOODRUSH
                                                     </div>
-                                                ) : ""}
-                                                <div className="absolute bottom-2 right-2 bg-white text-sm   rounded-full px-2 py-1 flex items-center gap-1 ">
-                                                    <Clock size={16} /> {food?.deliveryTime} min
-                                                </div>
-                                                <button className="absolute top-2 right-2 bg-white p-1 rounded-full">
-                                                    <Heart size={16} className="text-gray-500 hover:text-[#e21b70]" />
-                                                </button>
-                                            </div>
-                                            <div className="p-4">
-                                                <div className='flex justify-between'>
-                                                    <h3 className="font-bold text-[18px] text-gray-800 ">{food?.productName}</h3>
-                                                    <div className="flex items-center gap-1 text-gray-800  px-2  rounded">
-                                                        <Star size={16} className='text-[#ffb313]' /> {food?.rating || 0} ({food?.reviews || 0})
-                                                    </div>
-                                                </div>
-                                                <p className="text-gray-800 text-lg mb-2">{food?.category}</p>
-                                                <div className="flex items-center gap-2">
                                                     {food?.discountPrice ? (
-                                                        <>
+                                                        <div className="absolute top-10 left-2 flex gap-1 items-center bg-[#e21b70] text-white px-2 py-1 text-xs rounded-md font-semibold">
+                                                            <CiDiscount1 className='text-white text-lg' /> {food?.discountPrice} tk off
+                                                        </div>
+                                                    ) : ""}
+                                                    <div className="absolute bottom-2 right-2 bg-white text-sm   rounded-full px-2 py-1 flex items-center gap-1 ">
+                                                        <Clock size={16} /> {food?.deliveryTime} min
+                                                    </div>
+                                                    <button className="absolute top-2 right-2 bg-white p-1 rounded-full">
+                                                        <Heart size={16} className="text-gray-500 hover:text-[#e21b70]" />
+                                                    </button>
+                                                </div>
+                                                <div className="p-4">
+                                                    <div className='flex justify-between'>
+                                                        <h3 className="font-bold text-[18px] text-gray-800 ">{food?.productName}</h3>
+                                                        <div className="flex items-center gap-1 text-gray-800  px-2  rounded">
+                                                            <Star size={16} className='text-[#ffb313]' /> {food?.rating || 0} ({food?.reviews || 0})
+                                                        </div>
+                                                    </div>
+                                                    <p className="text-gray-800 text-lg mb-2">{food?.category}</p>
+                                                    <div className="flex items-center gap-2">
+                                                        {food?.discountPrice ? (
+                                                            <>
+                                                                <span className="font-semibold text-gray-700">
+                                                                    {food?.price - food?.discountPrice} tk
+                                                                </span>
+                                                                <span className="text-gray-500 text-sm ">
+                                                                    {food?.price} tk
+                                                                </span>
+                                                            </>
+                                                        ) : (
                                                             <span className="font-semibold text-gray-700">
-                                                                {food?.price - food?.discountPrice} tk
-                                                            </span>
-                                                            <span className="text-gray-500 text-sm ">
                                                                 {food?.price} tk
                                                             </span>
-                                                        </>
-                                                    ) : (
-                                                        <span className="font-semibold text-gray-700">
-                                                            {food?.price} tk
-                                                        </span>
-                                                    )}
+                                                        )}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </SwiperSlide>
+                                             </Link>
+                                        </SwiperSlide>
+                                   
                                 ))}
                             </Swiper>
                         </div>
@@ -510,56 +509,61 @@ const AllProduct = () => {
                     ) : (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                             {allRestaurantsProducts?.map((food) => (
-                                <div className="rounded-lg border overflow-hidden">
-                                    <div className="relative group  overflow-hidden">
-                                        <Image
-                                            src={food?.photo}
-                                            alt={food?.productName}
-                                            width={400}
-                                            height={190}
-                                            className="w-full h-[190px] object-cover transition-transform duration-500 group-hover:scale-105"
-                                        />
-                                        <div className="absolute top-2 left-2 flex gap-1 items-center bg-[#e21b70] text-white px-2 py-1 text-xs rounded-md font-bold">
-                                            <CiDiscount1 className='text-white text-lg' />FOODRUSH
-                                        </div>
-                                        {food?.discountPrice ? (
-                                            <div className="absolute top-10 left-2 flex gap-1 items-center bg-[#e21b70] text-white px-2 py-1 text-xs rounded-md font-semibold">
-                                                <CiDiscount1 className='text-white text-lg' /> {food?.discountPrice} tk off
+                                <div key={food?._id}>
+                                    <Link href={`/restaurants/allProduct/${food?._id}`} >
+                                    <div className="rounded-lg border overflow-hidden">
+                                        <div className="relative group  overflow-hidden">
+                                            <Image
+                                                src={food?.photo}
+                                                alt={food?.productName}
+                                                width={400}
+                                                height={190}
+                                                className="w-full h-[190px] object-cover transition-transform duration-500 group-hover:scale-105"
+                                            />
+                                            <div className="absolute top-2 left-2 flex gap-1 items-center bg-[#e21b70] text-white px-2 py-1 text-xs rounded-md font-bold">
+                                                <CiDiscount1 className='text-white text-lg' />FOODRUSH
                                             </div>
-                                        ) : ""}
-                                        <div className="absolute bottom-2 right-2 bg-white text-sm   rounded-full px-2 py-1 flex items-center gap-1 ">
-                                            <Clock size={16} /> {food?.deliveryTime} min
-                                        </div>
-                                        <button className="absolute top-2 right-2 bg-white p-1 rounded-full">
-                                            <Heart size={16} className="text-gray-500 hover:text-[#e21b70]" />
-                                        </button>
-                                    </div>
-                                    <div className="p-4">
-                                        <div className='flex justify-between'>
-                                            <h3 className="font-bold text-[18px] text-gray-800 ">{food?.productName}</h3>
-                                            <div className="flex items-center gap-1 text-gray-800  px-2  rounded">
-                                                <Star size={16} className='text-[#ffb313]' /> {food?.rating || 0} ({food?.reviews || 0})
-                                            </div>
-                                        </div>
-                                        <p className="text-gray-800 text-lg mb-2">{food?.category}</p>
-                                        <div className="flex items-center gap-2">
                                             {food?.discountPrice ? (
-                                                <>
+                                                <div className="absolute top-10 left-2 flex gap-1 items-center bg-[#e21b70] text-white px-2 py-1 text-xs rounded-md font-semibold">
+                                                    <CiDiscount1 className='text-white text-lg' /> {food?.discountPrice} tk off
+                                                </div>
+                                            ) : ""}
+                                            <div className="absolute bottom-2 right-2 bg-white text-sm   rounded-full px-2 py-1 flex items-center gap-1 ">
+                                                <Clock size={16} /> {food?.deliveryTime} min
+                                            </div>
+                                            <button className="absolute top-2 right-2 bg-white p-1 rounded-full">
+                                                <Heart size={16} className="text-gray-500 hover:text-[#e21b70]" />
+                                            </button>
+                                        </div>
+                                        <div className="p-4">
+                                            <div className='flex justify-between'>
+                                                <h3 className="font-bold text-[18px] text-gray-800 ">{food?.productName}</h3>
+                                                <div className="flex items-center gap-1 text-gray-800  px-2  rounded">
+                                                    <Star size={16} className='text-[#ffb313]' /> {food?.rating || 0} ({food?.reviews || 0})
+                                                </div>
+                                            </div>
+                                            <p className="text-gray-800 text-lg mb-2">{food?.category}</p>
+                                            <div className="flex items-center gap-2">
+                                                {food?.discountPrice ? (
+                                                    <>
+                                                        <span className="font-semibold text-gray-700">
+                                                            {food?.price - food?.discountPrice} tk
+                                                        </span>
+                                                        <span className="text-gray-500 text-sm ">
+                                                            {food?.price} tk
+                                                        </span>
+                                                    </>
+                                                ) : (
                                                     <span className="font-semibold text-gray-700">
-                                                        {food?.price - food?.discountPrice} tk
-                                                    </span>
-                                                    <span className="text-gray-500 text-sm ">
                                                         {food?.price} tk
                                                     </span>
-                                                </>
-                                            ) : (
-                                                <span className="font-semibold text-gray-700">
-                                                    {food?.price} tk
-                                                </span>
-                                            )}
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
+                                </Link>
                                 </div>
+
                             ))}
                         </div>
                     )}

@@ -64,6 +64,11 @@ const allNavItems = {
       icon: SquareTerminal,
     },
     {
+      title: "Add Shop",
+      url: "/dashboard/vendor/addShop",
+      icon: Boxes,
+    },
+    {
       title: "Add Product",
       url: "/dashboard/vendor/addProduct",
       icon: Plus,
@@ -73,6 +78,7 @@ const allNavItems = {
       url: "/dashboard/vendor/myProduct",
       icon: Boxes,
     },
+    
     
   ],
 

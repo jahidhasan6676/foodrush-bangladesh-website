@@ -437,7 +437,7 @@ const AllRestaurants = () => {
                                 {searchRestaurant?.map((restaurant) => (
 
                                     <SwiperSlide key={restaurant?._id}>
-                                        <Link href={`/restaurants/AllRestaurants/${restaurant?._id}`} >
+                                        <Link href={`/restaurants/AllRestaurant/${restaurant?._id}`} >
                                             <div className="rounded-lg border overflow-hidden">
                                                 <div className="relative group  overflow-hidden">
                                                     <Image
@@ -497,7 +497,7 @@ const AllRestaurants = () => {
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                             {allRestaurant?.map((restaurant) => (
                                 <div key={restaurant?._id}>
-                                    <Link href={`/restaurants/allProduct/${restaurant?._id}`} >
+                                    <Link href={`/restaurants/allRestaurant/${restaurant?._id}`} >
                                         <div className="rounded-lg border overflow-hidden">
                                             <div className="relative group  overflow-hidden">
                                                 <Image

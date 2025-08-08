@@ -7,48 +7,10 @@ const productSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    shopName: {
-      type: String,
-      required: true,
-      trim: true,
-    },
     price: {
       type: Number,
       required: true,
       min: 0,
-    },
-    discountPrice: {
-      type: Number,
-      default: 0,
-    },
-    quantity: {
-      type: Number,
-      required: true,
-      min: 0,
-    },
-    deliveryCharge: {
-      type: Number,
-      default: 0,
-    },
-    deliveryTime: {
-      type: String,
-      required: true,
-    },
-    category: {
-      type: String,
-      required: true,
-    },
-    division: {
-      type: String,
-      required: true,
-    },
-    district: {
-      type: String,
-      required: true,
-    },
-    area: {
-      type: String,
-      required: true,
     },
     description: {
       type: String,
@@ -62,7 +24,7 @@ const productSchema = new mongoose.Schema(
       type: String,
       default: "pending"
     },
-    ownerInfo: {
+    owner: {
       name: { type: String },
       email: { type: String },
       image: { type: String }

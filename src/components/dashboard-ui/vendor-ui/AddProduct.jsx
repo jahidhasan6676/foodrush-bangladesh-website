@@ -14,36 +14,18 @@ export default function AddProduct() {
 
         const form = e.target;
         const productName = form.productName.value;
-        const shopName = fromTheme.shopName.value;
         const price = form.price.value;
-        const discountPrice = form.discountPrice.value;
-        const quantity = form.quantity.value;
-        const deliveryCharge = form.deliveryCharge.value;
-        const deliveryTime = form.deliveryTime.value;
-        const category = form.category.value;
-        const division = form.division.value;
-        const district = form.district.value;
-        const area = form.area.value;
         const description = form.description.value;
         const image = form.image.files[0];
         const photo = await imageUploadToImgbb(image);
 
         const productData = {
             productName,
-            shopName,
             price,
-            discountPrice,
-            quantity,
-            deliveryCharge,
-            deliveryTime,
-            category,
-            division,
-            district,
-            area,
             description,
             photo,
             status: "pending",
-            ownerInfo: {
+            owner: {
                 name: session?.user?.name,
                 email: session?.user?.email,
                 image: session?.user?.image
@@ -83,18 +65,6 @@ export default function AddProduct() {
                         />
                     </div>
 
-                    {/* shop name */}
-                    <div className="space-y-2">
-                        <label className="block font-medium text-gray-700">Shop Name</label>
-                        <input
-                            type="text"
-                            name="shopName"
-                            className="w-full p-3 border border-gray-200 rounded-lg focus:ring-0"
-                            placeholder="e.g. Chicken Burger"
-                            required
-                        />
-                    </div>
-
                     {/* Price */}
                     <div className="space-y-2">
                         <label className="block font-medium text-gray-700">Price (৳)</label>
@@ -106,112 +76,7 @@ export default function AddProduct() {
                             required
                         />
                     </div>
-
-                    {/* Discount Price */}
-                    <div className="space-y-2">
-                        <label className="block font-medium text-gray-700">Discount Price (৳) <span className="text-gray-400 text-sm">(optional)</span></label>
-                        <input
-                            type="number"
-                            name="discountPrice"
-                            className="w-full p-3 border border-gray-200 rounded-lg focus:ring-0"
-                            placeholder="e.g. 10%"
-                        />
-                    </div>
-
-                    {/* Quantity */}
-                    <div className="space-y-2">
-                        <label className="block font-medium text-gray-700">Available Quantity</label>
-                        <input
-                            type="number"
-                            name="quantity"
-                            className="w-full p-3 border border-gray-200 rounded-lg focus:ring-0"
-                            placeholder="e.g. 50"
-                            required
-                        />
-                    </div>
-
-                    {/* Delivery Time */}
-                    <div className="space-y-2">
-                        <label className="block font-medium text-gray-700">Delivery Time (minutes)</label>
-                        <input
-                            type="number"
-                            name="deliveryTime"
-                            className="w-full p-3 border border-gray-200 rounded-lg focus:ring-0"
-                            placeholder="e.g. 30 - 40 min"
-                            required
-                        />
-                    </div>
-
-                    {/* Delivery Charge */}
-                    <div className="space-y-2">
-                        <label className="block font-medium text-gray-700">Delivery Charge (৳) <span className="text-gray-400 text-sm">(optional)</span></label>
-                        <input
-                            type="number"
-                            name="deliveryCharge"
-                            className="w-full p-3 border border-gray-200 rounded-lg focus:ring-0"
-                            placeholder="e.g. 40 TK"
-                        />
-                    </div>
-
-                    {/* Category */}
-                    <div className="space-y-2">
-                        <label className="block font-medium text-gray-700">Main Category</label>
-                        <select
-                            name="category"
-                            className="w-full p-3 border border-gray-200 rounded-lg focus:ring-0 appearance-none" required >
-                            <option value="">Select Category</option>
-                            <option value="food">Food</option>
-                            <option value="drink">Drink</option>
-                            <option value="dessert">Dessert</option>
-                            <option value="biryani">Biryani</option>
-                            <option value="burger">Burger</option>
-                            <option value="juice">Juice</option>
-                            <option value="cake">Cake</option>
-                            <option value="cake">Coffee</option>
-                        </select>
-                    </div>
-
-                    {/* Location Division */}
-                    <div className="space-y-2">
-                        <label className="block font-medium text-gray-700">Division</label>
-                        <select
-                            name="division"
-                            className="w-full p-3 border border-gray-200 rounded-lg focus:ring-0 appearance-none"  required >
-                            <option value="">Select Division</option>
-                            <option value="dhaka">Dhaka</option>
-                            <option value="chattogram">Chattogram</option>
-                            <option value="khulna">Khulna</option>
-                            <option value="khulna">Rajshahi</option>
-                            <option value="khulna">Barishal</option>
-                            <option value="khulna">Sylhet</option>
-                            <option value="khulna">Rangpur</option>
-                        </select>
-                    </div>
-
-                    {/* District */}
-                    <div className="space-y-2">
-                        <label className="block font-medium text-gray-700">District</label>
-                        <input
-                            type="text"
-                            name="district"
-                            className="w-full p-3 border border-gray-200 rounded-lg focus:ring-0"
-                            placeholder="e.g. Dhaka"
-                            required
-                        />
-                    </div>
-
-                    {/* Area */}
-                    <div className="space-y-2">
-                        <label className="block font-medium text-gray-700">Area / Upazila</label>
-                        <input
-                            type="text"
-                            name="area"
-                            className="w-full p-3 border border-gray-200 rounded-lg focus:ring-0"
-                            placeholder="e.g. Mirpur"
-                            required
-                        />
-                    </div>
-
+                  
                     {/* Description */}
                     <div className="md:col-span-2 space-y-2">
                         <label className="block font-medium text-gray-700">Product Description</label>
@@ -244,8 +109,7 @@ export default function AddProduct() {
                     <div className="md:col-span-2 pt-4">
                         <button
                             type="submit"
-                            className="w-full bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition font-medium text-lg shadow-md hover:shadow-lg"
-                        >
+                            className="w-full bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition font-medium text-lg shadow-md hover:shadow-lg">
                             Add Product
                         </button>
                     </div>

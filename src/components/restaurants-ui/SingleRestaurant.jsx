@@ -2,7 +2,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useParams, useSearchParams } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 import { FaBiking, FaClock, FaHeart, FaInfoCircle, FaStar } from 'react-icons/fa';
 import Image from 'next/image';
 import { GoClock } from "react-icons/go";
@@ -11,12 +11,13 @@ import Link from 'next/link';
 import { IoIosArrowForward } from 'react-icons/io';
 
 const SingleRestaurant = () => {
+    const [selectedProduct, setSelectedProduct] = useState(null);
     const params = useParams();
     const { id } = params;
     const searchParams = useSearchParams();
     const location = searchParams.get("location");
 
-    const { data: restaurant, isLoading } = useQuery({
+    const { data: restaurantData, isLoading } = useQuery({
         queryKey: ['singleRestaurant', id],
         queryFn: async () => {
             const res = await axios.get(`/api/restaurant/allRestaurants/${id}`);
@@ -24,8 +25,21 @@ const SingleRestaurant = () => {
         },
     });
 
+    const restaurant = restaurantData?.shop;
+    const products = restaurantData?.products;
+    console.log("products", products)
+
+
     if (isLoading) return <h2>Loading...</h2>;
-    if (!restaurant) return <h2>No restaurant found.</h2>
+    // if (!restaurant) return <h2>No restaurant found.</h2>
+    console.log("shop products", restaurantData)
+
+    {
+        restaurantData?.products?.map(p => {
+            const discountPercent = restaurantData?.shop?.discount || 0;
+            const discountPrice = p?.price - (p?.price * discountPercent / 100)
+        })
+    }
 
     return (
         <div className="w-11/12 mx-auto py-10">
@@ -39,8 +53,9 @@ const SingleRestaurant = () => {
                 <h3 className=' text-sm text-gray-600'>
                     <span>{restaurant?.shopName}</span>
                 </h3>
-
             </div>
+
+            {/* shop details */}
             <div className="border-b py-6">
                 <div className="flex items-start gap-4">
                     {/* Restaurant Image */}
@@ -115,6 +130,79 @@ const SingleRestaurant = () => {
                     </div>
                 </div>
             </div>
+
+            {/* shop all product */}
+            <section className='space-y-10'>
+                <div className='py-3 bg-gray-300'>
+                    menu
+                </div>
+
+                {/* product and cart */}
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
+                    {products?.map((product) => {
+                        const discountPercent = restaurantData?.shop?.discount || 0;
+                        const discountPrice = product?.price - (product?.price * discountPercent / 100);
+
+                        return (
+                            <div key={product?._id} >
+                                <div className='flex justify-between border hover:shadow-sm p-5 rounded-md'>
+                                    <div className='flex flex-col justify-between items-start'>
+                                        <h1 className='text-lg font-medium text-gray-700'>{product?.productName}</h1>
+
+                                        {discountPercent > 0 ? (
+                                            <div className="flex gap-2 items-center">
+                                                <p className='font-medium text-gray-600'>{discountPrice} TK</p>
+                                                <p className='line-through text-gray-500 text-sm'>{product.price} TK</p>
+                                                <span className='bg-green-100 text-green-700 px-2 py-0.5 text-xs rounded'>
+                                                    {discountPercent}% OFF
+                                                </span>
+                                            </div>
+                                        ) : (
+                                            <p className='font-medium text-gray-700'>{product.price} TK</p>
+                                        )}
+                                    </div>
+
+                                    <div className='w-[110px] h-[110px]'>
+                                        <Image
+                                            src={product?.photo}
+                                            alt='product picture'
+                                            width={110}
+                                            height={110}
+                                            className='rounded-sm object-cover w-full h-full'
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
+
+
+                </div>
+            </section>
+
+            {/* Modal */}
+            {selectedProduct && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-lg w-[400px] p-5 relative">
+                        <button
+                            className="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-lg"
+                            onClick={() => setSelectedProduct(null)}
+                        >
+                            ✕
+                        </button>
+                        <h2 className="text-xl font-bold mb-2">{selectedProduct.productName}</h2>
+                        <p className="text-gray-700 mb-4">
+                            Tk {selectedProduct.price}
+                        </p>
+                        <div className="flex items-center gap-3">
+                            <button className="bg-orange-500 text-white w-8 h-8 flex items-center justify-center rounded-full">-</button>
+                            <span>1</span>
+                            <button className="bg-orange-500 text-white w-8 h-8 flex items-center justify-center rounded-full">+</button>
+                            <button className="bg-orange-500 text-white flex-1 py-2 rounded">Add to cart</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

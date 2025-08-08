@@ -9,6 +9,9 @@ import { toast } from "react-toastify";
 export default function AddProduct() {
     //const  [selectImage,setSelectImage] = useState();
     const {data: session} = useSession();
+   
+
+
     const handleAddProductSubmit = async(e) => {
         e.preventDefault();
 
@@ -45,6 +48,8 @@ export default function AddProduct() {
 
         
     };
+
+    
 
     return (
         <div className="w-11/12 max-w-5xl mx-auto py-8">

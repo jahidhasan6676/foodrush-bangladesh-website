@@ -133,8 +133,8 @@ const SingleRestaurant = () => {
 
             {/* shop all product */}
             <section className='space-y-10'>
-                <div className='py-3 bg-gray-300'>
-                    menu
+                <div className='py-3 '>
+                    <h2 className='text-xl font-semibold'>Products</h2>
                 </div>
 
                 {/* product and cart */}
@@ -144,7 +144,7 @@ const SingleRestaurant = () => {
                         const discountPrice = product?.price - (product?.price * discountPercent / 100);
 
                         return (
-                            <div key={product?._id} >
+                            <div key={product?._id} onClick={() => setSelectedProduct(product)} className="cursor-pointer">
                                 <div className='flex justify-between border hover:shadow-sm p-5 rounded-md'>
                                     <div className='flex flex-col justify-between items-start'>
                                         <h1 className='text-lg font-medium text-gray-700'>{product?.productName}</h1>
@@ -180,29 +180,45 @@ const SingleRestaurant = () => {
                 </div>
             </section>
 
+
+
             {/* Modal */}
             {selectedProduct && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="bg-white rounded-lg w-[400px] p-5 relative">
+                <div className="fixed inset-0  bg-gray-50/80 bg-opacity-90 flex items-center justify-center z-50">
+                    <div className="bg-white border rounded-lg relative">
                         <button
-                            className="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-lg"
+                            className="absolute top-2 right-2 rounded-full w-[30px] h-[30px] bg-white hover:text-red-500 text-[16px] items-center"
                             onClick={() => setSelectedProduct(null)}
                         >
                             ✕
                         </button>
-                        <h2 className="text-xl font-bold mb-2">{selectedProduct.productName}</h2>
-                        <p className="text-gray-700 mb-4">
-                            Tk {selectedProduct.price}
-                        </p>
-                        <div className="flex items-center gap-3">
+                        <div className='w-full h-[250px]'>
+                            <Image
+                                src={selectedProduct?.photo}
+                                alt='product picture'
+                                width={110}
+                                height={250}
+                                className='rounded-sm object-cover w-full h-full'
+                            />
+                        </div>
+                        <div className='p-5'>
+                            <h2 className="text-lg font-medium mb-5 mt-5">{selectedProduct.productName}</h2>
+                            <p className='font-medium text-gray-600'>{selectedProduct?.description}</p>
+                            <p className="text-gray-700 mt-5 ">
+                                Tk {selectedProduct.price}
+                            </p>
+                        </div>
+                        <div className="flex items-center border-t p-5 gap-3">
                             <button className="bg-orange-500 text-white w-8 h-8 flex items-center justify-center rounded-full">-</button>
                             <span>1</span>
                             <button className="bg-orange-500 text-white w-8 h-8 flex items-center justify-center rounded-full">+</button>
                             <button className="bg-orange-500 text-white flex-1 py-2 rounded">Add to cart</button>
                         </div>
+
                     </div>
                 </div>
             )}
+
         </div>
     );
 };

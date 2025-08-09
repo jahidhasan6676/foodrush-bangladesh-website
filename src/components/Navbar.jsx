@@ -19,7 +19,7 @@ export default function Navbar() {
     const router = useRouter();
     const pathname = usePathname();
     const { role } = useRole();
-    const {carts} = useCart();
+    const { carts } = useCart();
     //console.log("user:", session)
 
     const handleLogout = () => {
@@ -110,7 +110,7 @@ export default function Navbar() {
                                             </div>
                                             </Link>}
                                             <hr className='text-gray-200/70' />
-                                            <Link href="/profile"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
+                                            <Link href="/helpCenter"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
                                                 <IoHelpCircleOutline className="w-[18px] h-[18px]" />
                                                 Help Center
                                             </div>

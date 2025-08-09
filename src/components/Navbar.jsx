@@ -80,7 +80,7 @@ export default function Navbar() {
                                             </div>
                                             </Link>
 
-                                            {role.role === "customer" && <Link href="/profile"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
+                                            {role.role === "customer" && <Link href="/userProfile"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
                                                 <FaRegUser className="w-[18px] h-[18px]" />
                                                 Profile
                                             </div>

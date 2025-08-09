@@ -48,12 +48,14 @@ export default function Navbar() {
                         </button>
 
                         {/* Cart icon */}
-                        <button className="bg-gray-100 p-[8px] rounded-full text-gray-600 relative transition-colors">
-                            <TfiBag />
-                            <span className="absolute -top-0 right-1 text-xs font-bold rounded-full flex items-center justify-center">
-                                0
-                            </span>
-                        </button>
+                        <Link href={"/cart"}>
+                            <button className="bg-gray-100 cursor-pointer p-[8px] rounded-full text-gray-600 relative transition-colors">
+                                <TfiBag />
+                                <span className="absolute -top-0 right-1 text-xs font-bold rounded-full flex items-center justify-center">
+                                    0
+                                </span>
+                            </button>
+                        </Link>
 
                         {session?.user?.email ? (
                             <>
@@ -90,16 +92,16 @@ export default function Navbar() {
 
                                             {role.role === "customer" && <Link href="/profile"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
                                                 <LiaClipboardListSolid className="w-[18px] h-[18px]" />
-                                               My Orders
+                                                My Orders
                                             </div>
                                             </Link>}
 
                                             {role.role === "customer" && <Link href="/wallet"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
                                                 <LiaClipboardListSolid className="w-[18px] h-[18px]" />
-                                               Wallet
+                                                Wallet
                                             </div>
                                             </Link>}
-                                            
+
                                             {role.role !== "customer" && <Link href="/dashboard"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
                                                 <FaRegUser className="w-[18px] h-[18px]" />
                                                 Dashboard

@@ -12,6 +12,7 @@ const cartSchema = new mongoose.Schema({
   ownerEmail: { type: String, required: true },
   customerEmail: { type: String, required: true },
   photo: { type: String },
+  charge: {type: Number, required: true},
   createdAt: { type: Date, default: Date.now }
 });
 

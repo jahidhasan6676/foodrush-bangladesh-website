@@ -64,7 +64,8 @@ const SingleRestaurant = () => {
             quantity: totalCount,
             ownerEmail: restaurant?.ownerInfo?.email,
             customerEmail: session?.user?.email,
-            photo: product.photo
+            photo: product.photo,
+            charge: restaurant?.deliveryCharge,
         }
         
 

@@ -23,3 +23,24 @@ export async function POST(req) {
     }
 
 }
+
+export async function GET(req){
+    try{
+        await connectionToDatabase();
+
+        const { searchParams } = new URL(req.url);
+        //console.log("params", searchParams)
+        const email = searchParams.get("email");
+        //console.log("email:", email)
+        if (!email) {
+            return NextResponse.json({ message: "Email is required" }, { status: 400 });
+        }
+
+        const result = await Cart.find({customerEmail: email});
+        return NextResponse.json(result, {status: 200})
+
+    }catch(error){
+        return NextResponse.json({message: "Failed  find cart data", status: 500})
+
+    }
+}

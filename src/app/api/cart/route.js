@@ -3,7 +3,6 @@ import connectionToDatabase from "../../../../lib/db";
 import { Cart } from "../../../../models/addCart";
 
 export async function POST(req) {
-    
 
     try {
         await connectionToDatabase();
@@ -42,5 +41,19 @@ export async function GET(req){
     }catch(error){
         return NextResponse.json({message: "Failed  find cart data", status: 500})
 
+    }
+}
+
+export async function DELETE(req) {
+    try{
+        await connectionToDatabase();
+
+        const {productId} = await req.json();
+
+        const result = await Cart.findByIdAndDelete(productId);
+        return NextResponse.json(result, {status: 200})
+
+    }catch(error){
+        return NextResponse.json({message: "Product delete failed", status: 500})
     }
 }

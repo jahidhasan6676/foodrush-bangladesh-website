@@ -10,6 +10,7 @@ import { LiaClipboardListSolid } from "react-icons/lia";
 import { signOut, useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
 import useRole from './client-hooks/useRole';
+import useCart from './client-hooks/useCart';
 
 
 export default function Navbar() {
@@ -18,6 +19,7 @@ export default function Navbar() {
     const router = useRouter();
     const pathname = usePathname();
     const { role } = useRole();
+    const {carts} = useCart();
     //console.log("user:", session)
 
     const handleLogout = () => {
@@ -52,7 +54,7 @@ export default function Navbar() {
                             <button className="bg-gray-100 cursor-pointer p-[8px] rounded-full text-gray-600 relative transition-colors">
                                 <TfiBag />
                                 <span className="absolute -top-0 right-1 text-xs font-bold rounded-full flex items-center justify-center">
-                                    0
+                                    {carts?.length || 0}
                                 </span>
                             </button>
                         </Link>

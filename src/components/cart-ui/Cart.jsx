@@ -1,21 +1,26 @@
 "use client";
-import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { RxCross2 } from "react-icons/rx";
+import useCart from '../client-hooks/useCart';
+import { toast } from 'react-toastify';
 
 const Cart = () => {
-    const { data: session } = useSession();
-    const { data: carts = [], isLoading, error, refetch } = useQuery({
-        queryKey: ["carts", session?.user?.email],
-        queryFn: async () => {
-            const res = await axios.get("/api/cart", { params: { email: session?.user?.email } });
-            return res?.data;
+    const {carts, isLoading,refetch} = useCart();
+    
+
+    const handleDeleteCartItem = async(id) =>{
+        
+        const res = await axios.delete(`/api/cart/`, {data: {productId: id}})
+        //console.log("delete:", res.data)
+        if(res.ok){
+            toast.success("Cart item delete")
+            refetch();
         }
-    })
+    }
+
     if (isLoading) return <h2>Loading...</h2>
     //console.log("all cart data", carts[0].charge)
 
@@ -49,7 +54,7 @@ const Cart = () => {
                                     <p className="text-gray-800">Unit: ${item?.price}</p>
                                 </div>
                             </div>
-                            <div className="text-right">
+                            <div onClick={()=> handleDeleteCartItem(item?._id)} className="text-right">
                                     <RxCross2 className='text-2xl cursor-pointer'/>
                             </div>
                         </div>

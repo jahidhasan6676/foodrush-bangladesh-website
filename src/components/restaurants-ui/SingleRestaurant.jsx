@@ -1,7 +1,7 @@
 "use client";
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import React, { useState } from 'react';
 import { FaBiking, FaClock, FaHeart, FaInfoCircle, FaStar } from 'react-icons/fa';
 import Image from 'next/image';
@@ -16,8 +16,8 @@ const SingleRestaurant = () => {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const params = useParams();
     const { id } = params;
-    const searchParams = useSearchParams();
-    const location = searchParams.get("location");
+    // const searchParams = useSearchParams();
+    // const location = searchParams.get("location");
     const [totalCount, setTotalCount] = useState(1);
     const { data: session } = useSession();
 
@@ -90,7 +90,7 @@ return (
                 <span><Link href={"/"}>Home</Link></span> <IoIosArrowForward />
             </h3>
             <h3 className='flex items-center gap-2 text-sm text-gray-700 '>
-                <span className='font-medium'><Link href={`/restaurants/allRestaurant?location=${location}`}>Restaurant</Link></span><IoIosArrowForward />
+                <span className='font-medium'>Restaurant</span><IoIosArrowForward />
             </h3>
             <h3 className=' text-sm text-gray-600'>
                 <span>{restaurant?.shopName}</span>

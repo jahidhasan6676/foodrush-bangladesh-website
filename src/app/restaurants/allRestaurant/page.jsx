@@ -1,11 +1,19 @@
-
+"use client";
 import AllRestaurants from '@/components/restaurants-ui/AllRestaurants';
-import React from 'react';
+import React, { Suspense } from 'react';
+
+
+function SearchBarFallback() {
+  return <>Loading...</>
+}
+
 
 const AllRestaurantPage = () => {
     return (
         <div>
-            <AllRestaurants/>
+           <Suspense fallback={SearchBarFallback}>
+             <AllRestaurants/>
+           </Suspense>
         </div>
     );
 };

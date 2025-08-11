@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🍔 FoodRush
 
-## Getting Started
+## 📖 Project Description
+**FoodRush** is a modern food delivery and order management web application where users can browse restaurants, order food, and manage their cart.  
+The project is built with a **user-friendly interface**, **real-time data updates**, and **secure payment** features to make the food ordering process fast and easy.
 
-First, run the development server:
+---
 
+## 🛠 Tech Stack
+
+**Frontend:**
+- Next.js (App Router)
+- React.js
+- Tailwind CSS
+- Axios
+- TanStack Query
+
+**Backend:**
+- Node.js
+- Express.js
+- MongoDB with Mongoose
+
+**Other Tools & Libraries:**
+- NextAuth
+- Stripe Payment Gateway
+- React Icons
+- ShadCN 
+
+---
+
+## ✨ Features
+
+- **User Authentication** – Login/Register using Firebase
+- **Browse Restaurants & Menus** – View restaurants and food by category
+- **Search & Filter** – Quickly find desired food
+- **Cart Management** – Add, update, and remove items from the cart
+- **Order Placement** – Secure and fast ordering system
+- **Checkout & Payment** – Online payment via Stripe
+- **Responsive Design** – Optimized for all devices
+
+---
+
+## 🚀 Setup Instructions
+
+### 1️⃣ Clone Repository
 ```bash
+git clone https://github.com/yourusername/foodrush.git
+cd foodrush
+
+cd client
+npm install
+Backend:
+
+cd server
+npm install
+3️⃣ Set Environment Variables
+Frontend (.env.local)
+
+NEXT_PUBLIC_API_URL=http://localhost:5000
+NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
+NEXT_PUBLIC_STRIPE_PUBLIC_KEY=your_stripe_public_key
+Backend (.env)
+
+PORT=5000
+MONGO_URI=your_mongodb_uri
+STRIPE_SECRET_KEY=your_stripe_secret_key
+FIREBASE_ADMIN_KEY=your_firebase_admin_key
+
+4️⃣ Run Application
+
+cd client
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Backend:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+cd server
+npm start
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+📄 License
+This project is for learning and personal use purposes only.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

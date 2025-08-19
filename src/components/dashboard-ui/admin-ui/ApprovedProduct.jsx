@@ -36,10 +36,10 @@ const ApprovedProduct = () => {
                                 <td className="p-2">
                                     <Image src={product?.photo} alt='image pic' width={70} height={70} className='rounded-sm' />
                                 </td>
-                                <td className="p-2">{product.productName}</td>
-                                <td className="p-2">{product.ownerInfo.name}</td>
-                                <td className="p-2">{product.price}TK.</td>
-                                <td className="p-2">{product.status}</td>
+                                <td className="p-2">{product?.productName}</td>
+                                <td className="p-2">{product?.owner?.name}</td>
+                                <td className="p-2">{product?.price}TK.</td>
+                                <td className="p-2">{product?.status}</td>
                             </tr>
                         ))}
                     </tbody>

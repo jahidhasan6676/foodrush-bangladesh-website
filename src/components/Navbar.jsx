@@ -33,7 +33,7 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className="bg-white shadow-sm py-4 sticky top-0 z-40">
+            <nav className="bg-white shadow-sm py-4 sticky top-0 z-50">
                 <div className="w-11/12 mx-auto flex justify-between items-center">
                     {/* Center - Logo - on mobile this will be centered */}
                     <div className="flex items-center gap-2">

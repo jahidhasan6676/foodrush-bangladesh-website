@@ -9,12 +9,15 @@ export async function GET(req) {
         await connectionToDatabase();
         const { searchParams } = new URL(req.url);
         const location = searchParams.get("location");
+        const keywords = location.split(/[\s,]+/); // ["Dhaka", "District", "Dhaka"]
+
+        const regexes = keywords.map(word => new RegExp(word, "i"));
 
         const result = await Shop.find({
             shopStatus: "approved",
             $or: [
-                { location: { $regex: location, $options: "i" } },
-                { address: { $regex: location, $options: "i" } },
+                { location: { $in: regexes } },
+                { address: { $in: regexes } },
             ],
         })
 

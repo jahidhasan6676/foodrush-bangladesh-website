@@ -52,12 +52,12 @@ const PendingProduct = () => {
                             <td className="p-2">
                                 <Image src={product?.photo} alt='image pic' width={70} height={70} className='rounded-sm'/>
                             </td>
-                            <td className="p-2">{product.productName}</td>
-                            <td className="p-2">{product.ownerInfo.name}</td>
-                            <td className="p-2">{product.price}TK.</td>
-                            <td className="p-2">{product.status}</td>
+                            <td className="p-2">{product?.productName}</td>
+                            <td className="p-2">{product?.owner?.name}</td>
+                            <td className="p-2">{product?.price}TK.</td>
+                            <td className="p-2">{product?.status}</td>
                           
-                            <td className="p-2 flex gap-2">
+                            <td className="p-2 flex items-center gap-2">
                                 <button onClick={()=>handleStatusChange(product?._id, "approved")}  className="bg-green-500 text-white px-3 py-1 rounded cursor-pointer">
                                     Approve
                                 </button>

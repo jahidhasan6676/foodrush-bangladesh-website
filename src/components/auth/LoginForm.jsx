@@ -8,6 +8,8 @@ import SocialLogin from './SocialLogin';
 export default function LoginPage() {
     const [error, setError] = useState("");
     const router = useRouter();
+    const [pass, setPass] = useState('');
+    const [mail, setMail] = useState('');
 
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
@@ -36,6 +38,17 @@ export default function LoginPage() {
         }
     }
 
+    // handle moderator and admin email
+    const handleVendor = () => {
+        setPass("123456")
+        setMail("robin@gmail.com")
+    }
+    const handleAdmin = () => {
+        setPass("123456")
+        setMail("jh18186676@gmail.com")
+    }
+
+
     return (
         <>
             <div className=" bg-gray-50 flex flex-col justify-center items-center py-10">
@@ -60,6 +73,11 @@ export default function LoginPage() {
                                 </div>
                             </div>
                         </div>
+                        <div className="flex justify-center items-center gap-2 mb-4">
+                            <button onClick={handleVendor} className='cursor-pointer'>Vendor</button>
+                            <button onClick={handleAdmin} className='cursor-pointer'>Admin</button>
+                        </div>
+
                         <form onSubmit={handleLoginSubmit} className="space-y-4">
                             <div>
                                 <label
@@ -73,6 +91,7 @@ export default function LoginPage() {
                                         name="email"
                                         type="email"
                                         placeholder='Enter Email'
+                                        defaultValue={mail}
                                         required
                                         className="block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:border-[#ff2e87]" />
                                 </div>
@@ -89,6 +108,7 @@ export default function LoginPage() {
                                         id="password"
                                         name="password"
                                         type="password"
+                                        defaultValue={pass}
                                         placeholder='123456'
                                         required
                                         className=" block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:border-[#ff2e87]" />

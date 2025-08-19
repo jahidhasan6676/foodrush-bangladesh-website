@@ -33,7 +33,7 @@ export async function GET(req) {
             return NextResponse.json({ message: "Email is required" }, { status: 400 });
         }
 
-        const allProductData = await Product.find({ "ownerInfo.email": email }).lean();
+        const allProductData = await Product.find({ "owner.email": email }).lean();
         return NextResponse.json(allProductData, { status: 200 })
     } catch (error) {
         console.log(error);

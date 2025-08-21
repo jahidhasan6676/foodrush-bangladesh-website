@@ -253,3 +253,18 @@ export const bdLocations = [
   { name: "Paikgacha Bazar, Khulna" },
   { name: "Batiaghata Bazar, Khulna" },
 ];
+
+
+// Store ID: foodr68a5d1f3a54ec
+// Store Password (API/Secret Key): foodr68a5d1f3a54ec@ssl
+
+
+// Merchant Panel URL: https://sandbox.sslcommerz.com/manage/ (Credential as you inputted in the time of registration)
+
+
+ 
+// Store name: testfoodrgqyq
+// Registered URL: www.foodrush.com
+// Session API to generate transaction: https://sandbox.sslcommerz.com/gwprocess/v3/api.php
+// Validation API: https://sandbox.sslcommerz.com/validator/api/validationserverAPI.php?wsdl
+// Validation API (Web Service) name: https://sandbox.sslcommerz.com/validator/api/validationserverAPI.php

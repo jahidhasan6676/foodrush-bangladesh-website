@@ -6,18 +6,22 @@ import React from 'react';
 import { RxCross2 } from "react-icons/rx";
 import useCart from '../client-hooks/useCart';
 import { toast } from 'react-toastify';
+import { useQueryClient } from '@tanstack/react-query';
+import { useSession } from 'next-auth/react';
 
 const Cart = () => {
-    const {carts, isLoading,refetch} = useCart();
-    
+    const queryClient = useQueryClient();
+    const { carts, isLoading, refetch } = useCart();
+    const { data: session } = useSession();
 
-    const handleDeleteCartItem = async(id) =>{
-        
-        const res = await axios.delete(`/api/cart/`, {data: {productId: id}})
+
+    const handleDeleteCartItem = async (id) => {
+        const res = await axios.delete(`/api/cart/`, { data: { productId: id } })
         //console.log("delete:", res.data)
-        if(res.ok){
+        if (res.status === 200) {
             toast.success("Cart item delete")
-            refetch();
+            queryClient.invalidateQueries(["carts", session?.user?.email]);
+            
         }
     }
 
@@ -26,8 +30,8 @@ const Cart = () => {
 
     const totalQuantity = carts.reduce((acc, item) => acc + item.quantity, 0);
     //const charge = carts.map((acc, item) => acc + item.quantity, 0);
-    const price = carts.reduce((acc, item) => acc + item.price * item.quantity, 0);
-    const totalPrice = price + carts[0].charge;
+    const price = carts?.reduce((acc, item) => acc + item.price * item.quantity, 0) || 0;
+    const totalPrice = price + (carts[0]?.charge || 0);
     return (
         <div className="w-11/12 mx-auto py-10">
             {/* Cart Items */}
@@ -49,13 +53,13 @@ const Cart = () => {
                                     />
                                 </div>
                                 <div>
-                                    <h2 className="text-xl font-semibold mb-2 text-gray-800 flex items-center gap-1"> {item?.quantity} <RxCross2 className='font-bold text-[12px]'/> {item?.productName}</h2>
+                                    <h2 className="text-xl font-semibold mb-2 text-gray-800 flex items-center gap-1"> {item?.quantity} <RxCross2 className='font-bold text-[12px]' /> {item?.productName}</h2>
                                     <p className="text-lg font-semibold mb-2 text-gray-800">Price: {item?.price * item?.quantity} TK</p>
                                     <p className="text-gray-800">Unit: ${item?.price}</p>
                                 </div>
                             </div>
-                            <div onClick={()=> handleDeleteCartItem(item?._id)} className="text-right">
-                                    <RxCross2 className='text-2xl cursor-pointer'/>
+                            <div onClick={() => handleDeleteCartItem(item?._id)} className="text-right">
+                                <RxCross2 className='text-2xl cursor-pointer' />
                             </div>
                         </div>
                     ))
@@ -79,7 +83,7 @@ const Cart = () => {
                         <hr className="mb-3" />
                         <div className="flex justify-between mb-3">
                             <span>Shipping Fee</span>
-                            <span>{carts[0].charge} TK</span>
+                            <span>{carts[0]?.charge || 0} TK</span>
                         </div>
                         <hr className="mb-3" />
                         <div className="flex justify-between font-semibold">
@@ -88,9 +92,9 @@ const Cart = () => {
                         </div>
 
                         {/* Checkout Button */}
-                        <div className="flex justify-end">
-                            <Link href={"/dashboard/checkout"}>
-                                <button disabled={carts?.length === 0} className="mt-4 bg-black text-sm text-white py-3 px-8 w-fit disabled:cursor-not-allowed disabled:opacity-50">
+                        <div className="flex justify-end ">
+                            <Link href={"/checkout"}>
+                                <button disabled={carts?.length === 0} className="cursor-pointer mt-4 bg-black text-sm text-white py-3 px-8 w-fit disabled:cursor-not-allowed disabled:opacity-50">
                                     PROCEED TO CHECKOUT
                                 </button>
                             </Link>

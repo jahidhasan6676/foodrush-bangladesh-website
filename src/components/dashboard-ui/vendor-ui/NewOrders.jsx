@@ -15,15 +15,27 @@ const NewOrders = () => {
         }
     })
 
+    const handleStatusChange = async (orderPlaced, id) => {
+        try {
+            const { data } = await axios.patch(`/api/newOrders/${id}`, {
+                statusUpdate: orderPlaced
+            });
+            refetch();
+
+            //console.log("status update", data); 
+        } catch (error) {
+            //console.error("Update error:", error);
+        }
+    };
+
+
     if (isLoading) return <h2>Loading...</h2>
-    console.log("orders", newOrders)
+    //console.log("orders", update)
     return (
         <div className="w-11/12 mx-auto py-10">
             <div className="rounded-md bg-white min-h-[calc(100vh-140px)] ">
                 {
-                    newOrders?.length === 0 ? (
-                        <p className="text-gray-500 text-lg font-medium flex justify-center items-center">No new orders found.</p>
-                    ) : (
+                    Array.isArray(newOrders) && newOrders.length > 0 ?   (
                         <div className="p-3 md:p-4 lg:p-6 w-full">
                             {
                                 newOrders?.map(newOrder => (
@@ -42,7 +54,7 @@ const NewOrders = () => {
                                             ))}
                                             <p className="text-sm font-medium mt-2">{newOrder?.name}</p>
                                             <p className="text-sm font-medium mt-1">{newOrder?.deliveryInfo?.phone}</p>
-                                            
+
                                         </div>
 
                                         <div>
@@ -74,7 +86,7 @@ const NewOrders = () => {
                                 ))
                             }
                         </div>
-                    )
+                    ) : (<p className="text-gray-500 text-lg font-medium flex justify-center items-center">No new orders found.</p>)
                 }
             </div>
         </div>

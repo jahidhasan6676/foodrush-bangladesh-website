@@ -78,6 +78,11 @@ const allNavItems = {
       url: "/dashboard/vendor/myProduct",
       icon: Boxes,
     },
+    {
+      title: "New Orders",
+      url: "/dashboard/vendor/newOrders",
+      icon: Boxes,
+    },
     
     
   ],

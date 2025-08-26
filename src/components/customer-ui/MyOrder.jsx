@@ -66,8 +66,6 @@ const MyOrder = () => {
                                                     backgroundColor:
                                                         order?.status === "Pending"
                                                             ? "black"
-                                                            : order?.status === "Packing"
-                                                                ? "orange"
                                                                 : order?.status === "Shipped"
                                                                     ? "blue"
                                                                     : order?.status === "Out for delivery"

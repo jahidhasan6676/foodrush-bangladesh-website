@@ -42,7 +42,7 @@ const shopSchema = new mongoose.Schema(
 
     shopStatus: {
       type: String,
-      default: "pending"
+      default: "Pending"
     },
 
     ownerInfo: {

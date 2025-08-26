@@ -1,12 +1,11 @@
-import React from 'react';
+import MyOrder from "@/components/customer-ui/MyOrder";
 
 const MyOrderPage = () => {
 
 
   return (
     <div>
-        
-        <h1>successfully payment...</h1>
+        <MyOrder/>
     </div>
   );
 };

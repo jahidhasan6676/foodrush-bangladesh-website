@@ -437,7 +437,7 @@ const AllRestaurants = () => {
                                 {searchRestaurant?.map((restaurant) => (
 
                                     <SwiperSlide key={restaurant?._id}>
-                                        <Link href={`/restaurants/AllRestaurant/${restaurant?._id}`} >
+                                        <Link href={`/restaurants/allRestaurant/${restaurant?._id}`} >
                                             <div className="rounded-lg border overflow-hidden">
                                                 <div className="relative group  overflow-hidden">
                                                     <Image

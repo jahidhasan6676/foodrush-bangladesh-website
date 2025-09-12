@@ -71,25 +71,18 @@ export default function HelpCenter() {
     {
       id: 'gen3',
       question: 'How do I contact customer support?',
-      answer: 'Use the live chat feature in the app, email support@foodrush.com, or call our helpline at +880-XXXX-XXXXXX.'
+      answer: 'Use the live chat feature in the app, email support@foodrush.com, or call our helpline at +8801818186676.'
     }
   ];
 
   return (
-    <div className="w-full">
+    <div className="w-11/12 mx-auto">
       <Head>
         <title>FoodRush Help Center</title>
         <meta name="description" content="Get help with your FoodRush orders, vendor services, and more" />
       </Head>
 
-      <header className="bg-green-600 text-white py-8">
-        <div className="w-11/12 mx-auto ">
-          <h1 className="text-3xl font-bold">FoodRush Help Center</h1>
-          <p className="mt-2">Find answers to your questions about ordering, selling, and more</p>
-        </div>
-      </header>
-
-      <main className="w-11/12 mx-auto py-10">
+      <main className=" py-20">
         <div className="flex flex-col md:flex-row gap-6">
           {/* Sidebar */}
           <div className="md:w-1/4">
@@ -100,7 +93,7 @@ export default function HelpCenter() {
                   <li>
                     <button
                       onClick={() => setActiveTab('customer')}
-                      className={`w-full text-left px-3 py-2 rounded ${activeTab === 'customer' ? 'bg-green-100 text-green-700 font-medium' : 'hover:bg-gray-100'}`}
+                      className={`w-full text-left px-3 py-2 cursor-pointer rounded ${activeTab === 'customer' ? 'bg-gray-100  font-medium' : 'hover:bg-gray-50'}`}
                     >
                       Customer Help
                     </button>
@@ -108,7 +101,7 @@ export default function HelpCenter() {
                   <li>
                     <button
                       onClick={() => setActiveTab('vendor')}
-                      className={`w-full text-left px-3 py-2 rounded ${activeTab === 'vendor' ? 'bg-green-100 text-green-700 font-medium' : 'hover:bg-gray-100'}`}
+                      className={`w-full text-left px-3 py-2 cursor-pointer rounded ${activeTab === 'vendor' ? 'bg-gray-100 font-medium' : 'hover:bg-gray-50'}`}
                     >
                       Vendor Help
                     </button>
@@ -116,7 +109,7 @@ export default function HelpCenter() {
                   <li>
                     <button
                       onClick={() => setActiveTab('general')}
-                      className={`w-full text-left px-3 py-2 rounded ${activeTab === 'general' ? 'bg-green-100 text-green-700 font-medium' : 'hover:bg-gray-100'}`}
+                      className={`w-full text-left px-3 py-2 rounded cursor-pointer ${activeTab === 'general' ? 'bg-gray-100 font-medium' : 'hover:bg-gray-50'}`}
                     >
                       General Questions
                     </button>
@@ -126,7 +119,7 @@ export default function HelpCenter() {
 
               <div className="mt-8">
                 <h3 className="font-medium mb-2">Need more help?</h3>
-                <button className="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded">
+                <button className="w-full bg-[#ff2e87] text-white py-2 px-4 rounded">
                   Contact Support
                 </button>
               </div>
@@ -137,13 +130,13 @@ export default function HelpCenter() {
           <div className="md:w-3/4">
             {activeTab === 'customer' && (
               <div className="bg-white rounded-lg shadow p-6">
-                <h2 className="text-2xl font-bold mb-6 text-green-700">Customer Help</h2>
+                <h2 className="text-2xl font-bold mb-6 text-[#ff2e87]">Customer Help</h2>
                 <div className="space-y-4">
                   {customerFAQs.map(faq => (
                     <div key={faq.id} className="border-b pb-4">
                       <button
                         onClick={() => toggleSection('customer', faq.id)}
-                        className="flex justify-between items-center w-full text-left font-medium text-lg hover:text-green-600 focus:outline-none"
+                        className="flex justify-between items-center w-full text-left font-medium text-lg  cursor-pointer focus:outline-none"
                       >
                         <span>{faq.question}</span>
                         <span>{openSections.customer[faq.id] ? '−' : '+'}</span>
@@ -161,13 +154,13 @@ export default function HelpCenter() {
 
             {activeTab === 'vendor' && (
               <div className="bg-white rounded-lg shadow p-6">
-                <h2 className="text-2xl font-bold mb-6 text-green-700">Vendor Help</h2>
+                <h2 className="text-2xl font-bold mb-6 text-[#ff2e87]">Vendor Help</h2>
                 <div className="space-y-4">
                   {vendorFAQs.map(faq => (
                     <div key={faq.id} className="border-b pb-4">
                       <button
                         onClick={() => toggleSection('vendor', faq.id)}
-                        className="flex justify-between items-center w-full text-left font-medium text-lg hover:text-green-600 focus:outline-none"
+                        className="flex justify-between items-center w-full text-left font-medium text-lg cursor-pointer focus:outline-none"
                       >
                         <span>{faq.question}</span>
                         <span>{openSections.vendor[faq.id] ? '−' : '+'}</span>
@@ -185,13 +178,13 @@ export default function HelpCenter() {
 
             {activeTab === 'general' && (
               <div className="bg-white rounded-lg shadow p-6">
-                <h2 className="text-2xl font-bold mb-6 text-green-700">General Questions</h2>
+                <h2 className="text-2xl font-bold mb-6 text-[#ff2e87]">General Questions</h2>
                 <div className="space-y-4">
                   {generalFAQs.map(faq => (
                     <div key={faq.id} className="border-b pb-4">
                       <button
                         onClick={() => toggleSection('general', faq.id)}
-                        className="flex justify-between items-center w-full text-left font-medium text-lg hover:text-green-600 focus:outline-none"
+                        className="flex justify-between items-center w-full text-left font-medium text-lg cursor-pointer focus:outline-none"
                       >
                         <span>{faq.question}</span>
                         <span>{openSections.general[faq.id] ? '−' : '+'}</span>
@@ -212,12 +205,12 @@ export default function HelpCenter() {
               <div className="bg-white rounded-lg shadow p-6">
                 <h3 className="text-xl font-semibold mb-3">Ordering Guide</h3>
                 <p className="text-gray-600 mb-4">Learn how to browse, order, and track your food items.</p>
-                <button className="text-green-600 hover:underline">View Guide →</button>
+                <button className="text-[#ff2e87] cursor-pointer hover:underline">View Guide →</button>
               </div>
               <div className="bg-white rounded-lg shadow p-6">
                 <h3 className="text-xl font-semibold mb-3">Vendor Resources</h3>
                 <p className="text-gray-600 mb-4">Tools and guides for vendors to manage their shops effectively.</p>
-                <button className="text-green-600 hover:underline">Explore Resources →</button>
+                <button className="text-[#ff2e87] cursor-pointer hover:underline">Explore Resources →</button>
               </div>
             </div>
           </div>

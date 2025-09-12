@@ -66,7 +66,7 @@ export default function Navbar() {
                                         <p className='text-xl'> <FaRegUser /> </p>
                                         <div className='flex items-center'>
                                             <h2 className='font-medium'>Winifred</h2>
-                                            <p className='text-xl text-[#e21b70]'> <IoIosArrowDown /> </p>
+                                            <p className='text-xl text-[#e21b70] cursor-pointer'> <IoIosArrowDown /> </p>
                                         </div>
                                     </button>
 

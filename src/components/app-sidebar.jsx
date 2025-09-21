@@ -107,8 +107,13 @@ const allNavItems = {
       icon: SquareTerminal,
     },
     {
-      title: "Pending Orders",
-      url: "/dashboard/pendingOrders",
+      title: "Orders",
+      url: "/dashboard/rider/orders",
+      icon: SquareTerminal,
+    },
+    {
+      title: "Orders History",
+      url: "/dashboard/rider/orderHistory",
       icon: SquareTerminal,
     },
   ],

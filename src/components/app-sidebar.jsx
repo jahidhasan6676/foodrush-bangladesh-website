@@ -55,6 +55,11 @@ const allNavItems = {
       { title: "Rejected Product", url: "/dashboard/admin/rejectedProducts" },
     ],
   },
+   {
+      title: "Restaurant List",
+      url: "/dashboard/admin/allUsers",
+      icon: ClipboardList,
+    },
   ],
 
   vendor: [

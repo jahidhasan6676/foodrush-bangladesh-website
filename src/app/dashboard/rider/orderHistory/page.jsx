@@ -1,11 +1,12 @@
+import OrderHistory from '@/components/dashboard-ui/rider-ui/OrderHistory';
 import React from 'react';
 
-const OrderHistory = () => {
+const OrderHistoryPage = () => {
     return (
         <div>
-            order history
+            <OrderHistory/>
         </div>
     );
 };
 
-export default OrderHistory;
+export default OrderHistoryPage;

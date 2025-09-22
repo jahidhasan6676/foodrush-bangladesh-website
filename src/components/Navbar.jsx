@@ -103,6 +103,11 @@ export default function Navbar() {
                                                 Wallet
                                             </div>
                                             </Link>}
+                                            {role.role === "customer" && <Link href="/vendorMemberForm"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
+                                                <LiaClipboardListSolid className="w-[18px] h-[18px]" />
+                                                Vendor Member
+                                            </div>
+                                            </Link>}
 
                                             {role.role !== "customer" && <Link href="/dashboard"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
                                                 <FaRegUser className="w-[18px] h-[18px]" />

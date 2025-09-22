@@ -40,11 +40,11 @@ const allNavItems = {
       url: "/dashboard",
       icon: SquareTerminal,
     },
-    {
-      title: "All Users",
-      url: "/dashboard/admin/allUsers",
-      icon: ClipboardList,
-    },
+    // {
+    //   title: "All Users",
+    //   url: "/dashboard/admin/allUsers",
+    //   icon: ClipboardList,
+    // },
     {
     title: "All Product",
     url: "#",
@@ -55,9 +55,19 @@ const allNavItems = {
       { title: "Rejected Product", url: "/dashboard/admin/rejectedProducts" },
     ],
   },
+    {
+    title: "All Users",
+    url: "#",
+    icon: Settings2,
+    items: [
+      { title: "Customers", url: "/dashboard/admin/customerList" },
+      { title: "Vendors", url: "/dashboard/admin/shopList" },
+      { title: "Riders", url: "/dashboard/admin/riderList" },
+    ],
+  },
    {
-      title: "Restaurant List",
-      url: "/dashboard/admin/allUsers",
+      title: "Vendor Request",
+      url: "/dashboard/admin/vendorRequest",
       icon: ClipboardList,
     },
   ],

@@ -12,6 +12,7 @@ export default function ClientLayout({ children }) {
     return (
         <NextAuthProvider>
             <QueryClientProvider client={queryClient}>
+               
                 <Navbar />
                 <div className="min-h-[calc(100vh-602px)]">
                     {children}

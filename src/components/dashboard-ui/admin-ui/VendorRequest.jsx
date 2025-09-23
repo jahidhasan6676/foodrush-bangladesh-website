@@ -1,27 +1,23 @@
 "use client"
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import React, { useState } from 'react';
 
 const VendorRequest = () => {
-    const [requests, setRequests] = useState([
-        {
-            _id: "1",
-            customerName: "Jahid Hasan",
-            shopName: "Food Lovers",
-            category: "Fast Food",
-            status: "Pending",
-        },
-        {
-            _id: "2",
-            customerName: "Rafiq",
-            shopName: "Sweet & Spicy",
-            category: "Dessert",
-            status: "Pending",
-        },
-    ]);
+
+    const { data: forms = [], isLoading } = useQuery({
+        queryKey: ["form"],
+        queryFn: async () => {
+            const res = await axios.get("/api/seeMemberForm");
+            return res?.data;
+        }
+    })
+
+    if(isLoading) return <h2>Loading...</h2>
     return (
         <div className='w-11/12 mx-auto py-10'>
-            <div className="bg-white  rounded-xl p-6 w-full">
-                <h2 className="text-xl font-semibold mb-4">Vendor Requests</h2>
+            <div className="bg-white  rounded-xl w-full">
+                
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left border border-gray-200 rounded-lg">
                         <thead className="bg-gray-100">
@@ -34,13 +30,13 @@ const VendorRequest = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {requests.map((req) => (
+                            {forms?.map((req) => (
                                 <tr key={req._id} className="hover:bg-gray-50">
-                                    <td className="p-3 border-b">{req.customerName}</td>
-                                    <td className="p-3 border-b">{req.shopName}</td>
-                                    <td className="p-3 border-b">{req.category}</td>
+                                    <td className="p-3 border-b">{req?.name}</td>
+                                    <td className="p-3 border-b">{req?.shopName}</td>
+                                    <td className="p-3 border-b">{req?.category}</td>
                                     <td
-                                        className={`p-3 border-b font-medium ${req.status === "Pending"
+                                        className={`p-3 border-b font-medium ${req.status === "pending"
                                             ? "text-yellow-600"
                                             : req.status === "Accepted"
                                                 ? "text-green-600"
@@ -50,7 +46,7 @@ const VendorRequest = () => {
                                         {req.status}
                                     </td>
                                     <td className="p-3 border-b space-x-2">
-                                        {req.status === "Pending" && (
+                                        {req.status === "pending" && (
                                             <>
                                                 <button
                                                     onClick={() => handleApprove(req._id)}
@@ -66,7 +62,7 @@ const VendorRequest = () => {
                                                 </button>
                                             </>
                                         )}
-                                        {req.status !== "Pending" && (
+                                        {req.status !== "pending" && (
                                             <span className="italic text-gray-500">Action Taken</span>
                                         )}
                                     </td>

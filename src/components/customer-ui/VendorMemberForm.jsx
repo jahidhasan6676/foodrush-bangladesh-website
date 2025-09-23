@@ -26,6 +26,7 @@ const VendorMemberForm = () => {
             address,
             phone,
             description,
+            status: "pending"
         }
 
        try{

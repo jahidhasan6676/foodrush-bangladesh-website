@@ -16,6 +16,10 @@ const vendorFormSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        category: {
+            type: String,
+            required: true,
+        },
         address: {
             type: String,
             required: true,
@@ -25,6 +29,10 @@ const vendorFormSchema = new mongoose.Schema(
             required: true,
         },
         description: {
+            type: String,
+            required: true,
+        },
+        status: {
             type: String,
             required: true,
         },

@@ -28,7 +28,7 @@ const VendorMemberForm = () => {
             description,
             status: "pending"
         }
-
+        
        try{
          const res = await axios.post("/api/vendorMemberForm", vendorFormData)
          console.log("vendor form send", res.data)

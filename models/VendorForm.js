@@ -34,9 +34,13 @@ const vendorFormSchema = new mongoose.Schema(
         },
         status: {
             type: String,
+            enum: ["pending", "approve"],
+            default: "pending",
             required: true,
         },
-    }
+
+    },
+    { timestamps: true }
 
 
 )

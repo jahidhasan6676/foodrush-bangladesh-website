@@ -8,7 +8,7 @@ export async function GET(req) {
     try{
         await connectionToDatabase();
 
-        const vendorFom = await VendorForm.find();
+        const vendorFom = await VendorForm.find({status: "pending"});
         //console.log("see member form", vendorFom)
         return NextResponse.json(vendorFom, {status: 200})
     }catch(error){

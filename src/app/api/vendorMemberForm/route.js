@@ -7,6 +7,7 @@ export async function POST(req) {
 
     try{
         const body = await req.json();
+        //console.log("body form data", body)
 
         const addVendorForm = await VendorForm.create(body);
 

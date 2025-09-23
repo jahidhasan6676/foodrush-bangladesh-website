@@ -2,6 +2,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const VendorRequest = () => {
 
@@ -13,11 +14,24 @@ const VendorRequest = () => {
         }
     })
 
-    if(isLoading) return <h2>Loading...</h2>
+    // vendor request accepted
+    const handleVendorRequestApprove = async (id) => {
+        // console.log(id)
+        try {
+            const res = await axios.patch(`/api/seeMemberForm/${id}`);
+             console.log("update data", res.data);
+           
+        } catch (error) {
+            console.log("error", error)
+            toast.error("Something Wrong")
+        }
+    }
+
+    if (isLoading) return <h2>Loading...</h2>
     return (
         <div className='w-11/12 mx-auto py-10'>
             <div className="bg-white  rounded-xl w-full">
-                
+
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left border border-gray-200 rounded-lg">
                         <thead className="bg-gray-100">
@@ -49,15 +63,14 @@ const VendorRequest = () => {
                                         {req.status === "pending" && (
                                             <>
                                                 <button
-                                                    onClick={() => handleApprove(req._id)}
-                                                    className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600 transition"
-                                                >
+                                                    onClick={() => handleVendorRequestApprove(req._id)}
+                                                    className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600 transition">
                                                     Accept
                                                 </button>
+
                                                 <button
                                                     onClick={() => handleReject(req._id)}
-                                                    className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition"
-                                                >
+                                                    className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition">
                                                     Reject
                                                 </button>
                                             </>

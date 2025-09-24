@@ -94,7 +94,7 @@ const allNavItems = {
       icon: Boxes,
     },
     {
-      title: "New Orders",
+      title: "All Orders",
       url: "/dashboard/vendor/newOrders",
       icon: Boxes,
     },

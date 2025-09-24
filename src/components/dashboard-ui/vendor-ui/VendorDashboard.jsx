@@ -104,7 +104,7 @@ const SellerDashboard = () => {
 
   if(isLoading) return <h2>Loading...</h2>
   //console.log("shopID", shopId.shopId)
-  console.log("dashboard data", dashboardData)
+  ///console.log("dashboard data", dashboardData)
 
   return (
     <>

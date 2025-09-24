@@ -32,7 +32,6 @@ export async function GET(req) {
             {
                 $match: {
                     shopId: shop._id,
-                    status: { $ne: "Delivered" }
                 }
             },
             {

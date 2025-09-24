@@ -2,44 +2,52 @@ import { NextResponse } from "next/server";
 import connectionToDatabase from "../../../../lib/db";
 import User from "../../../../models/user";
 
-export async function GET(req) {
-   
 
+export async function GET() {
+  try {
     await connectionToDatabase();
-    const url = new URL(req.url);
-    const adminEmail = url.searchParams.get("adminEmail");
 
-    try {
-        const users = await User.find({ email: { $ne: adminEmail } });
-        return NextResponse.json(users, { status: 200 })
+    // Customers
+    const customers = await User.find({ role: "customer" });
 
-    } catch (error) {
-        return NextResponse.json({ message: "Server Error" }, { status: 500 })
-    }
+    // Vendors
+    const vendors = await User.find({ role: "vendor" });
 
+    // Riders
+    const riders = await User.find({ role: "rider" });
+
+    return NextResponse.json({
+      customers,
+      vendors,
+      riders
+    });
+  } catch (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
 }
 
-export async function DELETE(req) {
+
+// export async function DELETE(req) {
     
 
-    await connectionToDatabase();
-    try {
-        const body = await req.json();
-        //console.log("body", body)
-        const { userId } = body;
-        //console.log("UserId", userId)
+//     await connectionToDatabase();
+//     try {
+//         const body = await req.json();
+//         //console.log("body", body)
+//         const { userId } = body;
+//         //console.log("UserId", userId)
 
-        const deletedUser = await User.findByIdAndDelete(userId);
-        //console.log("deleted user", deletedUser)
+//         const deletedUser = await User.findByIdAndDelete(userId);
+//         //console.log("deleted user", deletedUser)
 
-        if (!deletedUser) {
-            return NextResponse.json({ message: 'User not found' }, { status: 404 });
-        }
+//         if (!deletedUser) {
+//             return NextResponse.json({ message: 'User not found' }, { status: 404 });
+//         }
 
-        return NextResponse.json({ message: 'User deleted successfully' }, { status: 200 });
-    } catch (error) {
-        return NextResponse.json({ message: 'Server error', error }, { status: 500 });
-    }
+//         return NextResponse.json({ message: 'User deleted successfully' }, { status: 200 });
+//     } catch (error) {
+//         return NextResponse.json({ message: 'Server error', error }, { status: 500 });
+//     }
 
 
-}
+// }

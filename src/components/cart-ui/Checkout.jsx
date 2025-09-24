@@ -59,7 +59,7 @@ const Checkout = () => {
             shopId: carts[0]?.shopId,
             transactionId: "",
             date: new Date(),
-            status: 'pending',
+            status: 'Pending',
             deliveryInfo: storedDeliveryInfo,
             method: "SSLCommerce",
             payment: "pending",

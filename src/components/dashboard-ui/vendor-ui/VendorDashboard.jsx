@@ -22,6 +22,10 @@ import {
   Pie,
   Cell,
 } from 'recharts';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import { useSession } from 'next-auth/react';
+import useShopId from '@/components/client-hooks/useShopId';
 
 // Sample data for charts
 const lineChartData = [
@@ -86,6 +90,12 @@ const recentOrders = [
 ];
 
 const SellerDashboard = () => {
+  const {data: session} = useSession();
+  const {shopId} = useShopId();
+
+ 
+  //if(isLoading) return <h2>Loading...</h2>
+  
   return (
     <>
       <Head>
@@ -93,7 +103,7 @@ const SellerDashboard = () => {
         <meta name="description" content="A modern and intuitive seller dashboard for FoodRush vendors to track orders, revenue, and performance." />
       </Head>
       <div className="w-11/12 mx-auto py-10">
-       
+
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
@@ -101,7 +111,7 @@ const SellerDashboard = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-semibold text-gray-600">Total Orders</p>
-                <p className="text-4xl font-extrabold text-gray-900">1,234</p>
+                <p className="text-4xl font-bold text-gray-900">1,234</p>
               </div>
               <MdShoppingCart className="h-10 w-10 text-indigo-500 opacity-80" />
             </div>
@@ -112,7 +122,7 @@ const SellerDashboard = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-semibold text-gray-600">Revenue</p>
-                <p className="text-4xl font-extrabold text-gray-900">$45,678</p>
+                <p className="text-4xl font-bold text-gray-900">$45,678</p>
               </div>
               <MdAttachMoney className="h-10 w-10 text-green-500 opacity-80" />
             </div>
@@ -123,7 +133,7 @@ const SellerDashboard = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-semibold text-gray-600">Pending Orders</p>
-                <p className="text-4xl font-extrabold text-gray-900">56</p>
+                <p className="text-4xl font-bold text-gray-900">56</p>
               </div>
               <MdPeople className="h-10 w-10 text-yellow-500 opacity-80" />
             </div>
@@ -134,7 +144,7 @@ const SellerDashboard = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-semibold text-gray-600">Completed Order</p>
-                <p className="text-4xl font-extrabold text-gray-900">100</p>
+                <p className="text-4xl font-bold text-gray-900">100</p>
               </div>
               <MdStar className="h-10 w-10 text-amber-500 opacity-80" />
             </div>
@@ -246,13 +256,12 @@ const SellerDashboard = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span
-                        className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${
-                          order.status === 'Delivered'
-                            ? 'bg-green-100 text-green-800'
-                            : order.status === 'Pending'
+                        className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${order.status === 'Delivered'
+                          ? 'bg-green-100 text-green-800'
+                          : order.status === 'Pending'
                             ? 'bg-yellow-100 text-yellow-800'
                             : 'bg-red-100 text-red-800'
-                        }`}
+                          }`}
                       >
                         {order.status}
                       </span>

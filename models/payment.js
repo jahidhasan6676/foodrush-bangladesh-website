@@ -41,8 +41,8 @@ const paymentSchema = new mongoose.Schema(
         },
         status: {
             type: String,
-            enum: ["pending", "success", "failed"],
-            default: "pending",
+            enum: ["Pending", "success", "failed"],
+            default: "Pending",
         },
         deliveryInfo: {
             name: { type: String, required: true },

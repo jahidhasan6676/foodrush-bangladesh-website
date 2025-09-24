@@ -8,6 +8,7 @@ export async function GET(req) {
         await connectionToDatabase();
         const { searchParams } = new URL(req.url);
         const vendorEmail = searchParams.get("email");
+        //console.log("vendorEmail", vendorEmail)
 
         if (!vendorEmail) {
             return NextResponse.json(
@@ -18,6 +19,7 @@ export async function GET(req) {
 
 
         const shop = await Shop.findOne({ "ownerInfo.email": vendorEmail });
+        //console.log("shop find", shop)
         if (!shop) {
             return NextResponse.json(
                 { message: "Shop not found for this vendor" },
@@ -28,8 +30,10 @@ export async function GET(req) {
 
         const orders = await Payment.aggregate([
             {
-                $match: { shopId: shop._id },
-                status: { $ne: "Delivered" }
+                $match: {
+                    shopId: shop._id,
+                    status: { $ne: "Delivered" }
+                }
             },
             {
                 $lookup: {
@@ -64,6 +68,7 @@ export async function GET(req) {
                 }
             }
         ]);
+        //console.log("orders", orders)
 
         return NextResponse.json(orders || [], { status: 200 });
     } catch (error) {

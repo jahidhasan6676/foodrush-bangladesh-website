@@ -30,7 +30,7 @@ const NewOrders = () => {
 
 
     if (isLoading) return <h2>Loading...</h2>
-    //console.log("orders", update)
+    console.log("orders", newOrders)
     return (
         <div className="w-11/12 mx-auto py-10">
             <div className="rounded-md bg-white min-h-[calc(100vh-140px)] ">

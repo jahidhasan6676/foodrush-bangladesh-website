@@ -90,12 +90,22 @@ const recentOrders = [
 ];
 
 const SellerDashboard = () => {
-  const {data: session} = useSession();
-  const {shopId} = useShopId();
+  const { data: session } = useSession();
+  const { shopId } = useShopId();
 
- 
-  //if(isLoading) return <h2>Loading...</h2>
-  
+  const { data: dashboardData = [], isLoading } = useQuery({
+    queryKey: ["dashboardData", session?.user?.email],
+    queryFn: async () => {
+      const res = await axios.get(`/api/vendor/vendorDashboard?shopId=${shopId?.shopId}`);
+      return res?.data;
+    }
+  })
+
+
+  if(isLoading) return <h2>Loading...</h2>
+  //console.log("shopID", shopId.shopId)
+  console.log("dashboard data", dashboardData)
+
   return (
     <>
       <Head>
@@ -111,7 +121,7 @@ const SellerDashboard = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-semibold text-gray-600">Total Orders</p>
-                <p className="text-4xl font-bold text-gray-900">1,234</p>
+                <p className="text-4xl font-bold text-gray-900">{dashboardData?.stats?.totalOrders || 0}</p>
               </div>
               <MdShoppingCart className="h-10 w-10 text-indigo-500 opacity-80" />
             </div>
@@ -122,7 +132,7 @@ const SellerDashboard = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-semibold text-gray-600">Revenue</p>
-                <p className="text-4xl font-bold text-gray-900">$45,678</p>
+                <p className="text-4xl font-bold text-gray-900">{dashboardData?.stats?.revenue || 0}</p>
               </div>
               <MdAttachMoney className="h-10 w-10 text-green-500 opacity-80" />
             </div>
@@ -133,7 +143,7 @@ const SellerDashboard = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-semibold text-gray-600">Pending Orders</p>
-                <p className="text-4xl font-bold text-gray-900">56</p>
+                <p className="text-4xl font-bold text-gray-900">{dashboardData?.stats?.pendingOrders || 0}</p>
               </div>
               <MdPeople className="h-10 w-10 text-yellow-500 opacity-80" />
             </div>
@@ -144,7 +154,7 @@ const SellerDashboard = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-semibold text-gray-600">Completed Order</p>
-                <p className="text-4xl font-bold text-gray-900">100</p>
+                <p className="text-4xl font-bold text-gray-900">{dashboardData?.stats?.completedOrders || 0}</p>
               </div>
               <MdStar className="h-10 w-10 text-amber-500 opacity-80" />
             </div>
@@ -158,7 +168,7 @@ const SellerDashboard = () => {
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Monthly Sales Overview</h3>
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={lineChartData}>
+                <LineChart data={dashboardData?.lineChart}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                   <XAxis dataKey="name" stroke="#6b7280" />
                   <YAxis stroke="#6b7280" />
@@ -188,7 +198,7 @@ const SellerDashboard = () => {
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
-                    data={pieChartData}
+                    data={dashboardData?.pieChart}
                     cx="50%"
                     cy="50%"
                     outerRadius={100}
@@ -243,10 +253,10 @@ const SellerDashboard = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {recentOrders.map((order) => (
+                {dashboardData?.recentOrders?.map((order) => (
                   <tr key={order.id} className="hover:bg-indigo-50 transition-colors duration-200">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      {order.id}
+                      {order.id.slice(0, 5)}...
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       {order.customer}
@@ -267,10 +277,10 @@ const SellerDashboard = () => {
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {order.amount}
+                      {order.amount} TK
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {order.date}
+                      {new Date (order.date).toLocaleDateString("en-GB")}
                     </td>
                   </tr>
                 ))}

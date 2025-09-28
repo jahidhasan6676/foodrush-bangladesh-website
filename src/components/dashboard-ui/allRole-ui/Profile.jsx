@@ -30,7 +30,7 @@ export default function Profile() {
         setEditMode(false);
         // Here you would typically send the updated data to your backend
     };
-    console.log("session", session)
+    //console.log("session", session)
 
     return (
         <div className="w-11/12 mx-auto">

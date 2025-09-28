@@ -16,11 +16,12 @@ import Link from "next/link";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
+import FoodRushLoader from "@/components/loadingSpinner/FoodRushLoader";
 
 
 const MyProduct = () => {
     const { data: session } = useSession();
-    const { data: products = [], isLoading, error,refetch } = useQuery({
+    const { data: products = [], isLoading, error, refetch } = useQuery({
         queryKey: ["products", session?.user?.email],
         queryFn: async () => {
             const res = await axios.get("/api/addProduct", { params: { email: session?.user?.email } });
@@ -56,14 +57,18 @@ const MyProduct = () => {
                 }
             });
 
-        }catch(error){
+        } catch (error) {
             console.error("Delete failed:", error.response?.data?.message || error.message);
         }
     }
 
-    
-    if (isLoading) return <h2>Loading...</h2>
-    console.log("all Product data:", products)
+
+    if (isLoading) return (
+        <div className="min-h-screen flex items-center justify-center">
+            <FoodRushLoader/>
+        </div>
+    );
+    //console.log("all Product data:", products)
     return (
         <>
             <Table className="w-11/12 mx-auto my-10">

@@ -1,9 +1,9 @@
 "use client";
+import FoodRushLoader from "@/components/loadingSpinner/FoodRushLoader";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { ArrowUpIcon, ArrowDownIcon } from "lucide-react"
 import { Check, CheckCircle, AlertCircle, HelpCircle, Settings } from "lucide-react"
-import { TbCurrencyTaka } from "react-icons/tb";
 import {
   AreaChart,
   Area,
@@ -77,9 +77,14 @@ const AdminDashboard = () => {
   ];
 
 
-  console.log("admin dashboard", stats)
+  //console.log("admin dashboard", stats)
 
-  if (isLoading) return <h2>Loading...</h2>
+  if (isLoading) return (
+    <div className="min-h-screen flex items-center justify-center">
+      <FoodRushLoader />
+    </div>
+  );
+
 
 
   return (
@@ -113,7 +118,7 @@ const AdminDashboard = () => {
             {/* Withdraw Button */}
             <div className="ml-8">
               <button className="bg-orange-500 hover:bg-orange-600 cursor-pointer text-white px-6 py-3 rounded-lg font-medium">
-                Withdraw 
+                Withdraw
               </button>
             </div>
           </div>

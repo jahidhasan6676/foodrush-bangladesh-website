@@ -1,4 +1,5 @@
 "use client"
+import FoodRushLoader from '@/components/loadingSpinner/FoodRushLoader';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
@@ -27,7 +28,11 @@ const NewOrders = () => {
         }
     };
 
-    if (isLoading) return <h2>Loading...</h2>
+    if (isLoading) return (
+        <div className="min-h-screen flex items-center justify-center">
+            <FoodRushLoader/>
+        </div>
+    );
 
     // Filtered orders
     const filteredOrders = allOrders.filter(order =>

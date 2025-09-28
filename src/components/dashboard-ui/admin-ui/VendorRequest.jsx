@@ -1,4 +1,5 @@
 "use client"
+import FoodRushLoader from '@/components/loadingSpinner/FoodRushLoader';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useState } from 'react';
@@ -19,15 +20,19 @@ const VendorRequest = () => {
         // console.log(id)
         try {
             const res = await axios.patch(`/api/seeMemberForm/${id}`);
-             console.log("update data", res.data);
-           
+            console.log("update data", res.data);
+
         } catch (error) {
             console.log("error", error)
             toast.error("Something Wrong")
         }
     }
 
-    if (isLoading) return <h2>Loading...</h2>
+    if (isLoading) return (
+        <div className="min-h-screen flex items-center justify-center">
+            <FoodRushLoader />
+        </div>
+    );
     return (
         <div className='w-11/12 mx-auto py-10'>
             <div className="bg-white  rounded-xl w-full">

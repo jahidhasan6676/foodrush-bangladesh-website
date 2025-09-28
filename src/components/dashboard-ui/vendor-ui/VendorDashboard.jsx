@@ -29,6 +29,7 @@ import useShopId from '@/components/client-hooks/useShopId';
 import { TbCurrencyTaka } from "react-icons/tb";
 import { MdOutlinePending } from "react-icons/md";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
+import FoodRushLoader from '@/components/loadingSpinner/FoodRushLoader';
 
 // Sample data for charts
 const lineChartData = [
@@ -104,8 +105,11 @@ const SellerDashboard = () => {
     }
   })
 
-
-  if(isLoading) return <h2>Loading...</h2>
+  if (isLoading) return (
+    <div className="min-h-screen flex items-center justify-center">
+      <FoodRushLoader/>
+    </div>
+  );
   //console.log("shopID", shopId.shopId)
   ///console.log("dashboard data", dashboardData)
 
@@ -283,7 +287,7 @@ const SellerDashboard = () => {
                       {order.amount} TK
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {new Date (order.date).toLocaleDateString("en-GB")}
+                      {new Date(order.date).toLocaleDateString("en-GB")}
                     </td>
                   </tr>
                 ))}

@@ -1,4 +1,5 @@
 "use client";
+import FoodRushLoader from '@/components/loadingSpinner/FoodRushLoader';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Image from 'next/image';
@@ -13,6 +14,11 @@ const ApprovedProduct = () => {
             return res.data;
         }
     })
+    if (isLoading) return (
+        <div className="min-h-screen flex items-center justify-center">
+            <FoodRushLoader/>
+        </div>
+    );
     return (
         <div className='w-11/12 mx-auto py-10'>
 
@@ -26,7 +32,7 @@ const ApprovedProduct = () => {
                             <th className="p-2">Vendor Name</th>
                             <th className="p-2">Price</th>
                             <th className="p-2">Status</th>
-                           
+
                         </tr>
                     </thead>
                     <tbody>

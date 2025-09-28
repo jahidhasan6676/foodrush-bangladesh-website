@@ -64,7 +64,7 @@ const Banner = () => {
                                     />
                                     <button
                                         onClick={handleSearch}
-                                        className="bg-[#ff2e87] hidden lg:flex hover:bg-[#e02679] text-white font-bold py-3 px-6 items-center transition duration-200">
+                                        className="bg-[#ff2e87] hidden cursor-pointer lg:flex hover:bg-[#e02679] text-white font-bold py-3 px-6 items-center transition duration-200">
                                         <FiSearch className="mr-2" />
                                         Search
                                     </button>

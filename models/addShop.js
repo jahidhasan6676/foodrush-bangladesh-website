@@ -40,11 +40,6 @@ const shopSchema = new mongoose.Schema(
       required: true,
     },
 
-    shopStatus: {
-      type: String,
-      default: "Pending"
-    },
-
     ownerInfo: {
       name: { type: String },
       email: { type: String },

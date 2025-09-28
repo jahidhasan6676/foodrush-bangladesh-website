@@ -210,7 +210,7 @@ export default function Profile() {
                                         <div className="border border-red-200 bg-red-50 rounded-lg p-4">
                                             <h3 className="font-medium text-red-800 mb-3">Danger Zone</h3>
                                             <p className="text-red-600 text-sm mb-3">Deleting your account will remove all your data permanently.</p>
-                                            <button className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md text-sm font-medium">
+                                            <button className="bg-red-600 cursor-pointer hover:bg-red-700 text-white py-2 px-4 rounded-md text-sm font-medium">
                                                 Delete Account
                                             </button>
                                         </div>

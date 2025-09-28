@@ -64,13 +64,13 @@ const VendorRequest = () => {
                                             <>
                                                 <button
                                                     onClick={() => handleVendorRequestApprove(req._id)}
-                                                    className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600 transition">
+                                                    className="bg-green-500 cursor-pointer text-white px-3 py-1 rounded-md hover:bg-green-600 transition">
                                                     Accept
                                                 </button>
 
                                                 <button
                                                     //onClick={() => handleReject(req._id)}
-                                                    className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition">
+                                                    className="bg-red-500 cursor-pointer text-white px-3 py-1 rounded-md hover:bg-red-600 transition">
                                                     Reject
                                                 </button>
                                             </>

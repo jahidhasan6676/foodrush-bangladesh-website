@@ -75,7 +75,7 @@ const DeliveryLocation = () => {
                 {deliveryCities?.map((city, idx) => (
                     <div
                         key={idx}
-                        className="rounded-lg overflow-hidden relative group shadow-md hover:shadow-lg transition">
+                        className="rounded-lg overflow-hidden cursor-pointer relative group shadow-md hover:shadow-lg transition">
                         <Image
                             src={city.image}
                             alt={city.name}

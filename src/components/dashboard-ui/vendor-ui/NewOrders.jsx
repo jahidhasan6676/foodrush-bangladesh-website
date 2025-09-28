@@ -42,13 +42,13 @@ const NewOrders = () => {
             <div className="flex gap-3 mb-6">
                 <button
                     onClick={() => setActiveTab("new")}
-                    className={`px-4 py-2 rounded-md font-medium ${activeTab === "new" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700"}`}
+                    className={`px-4 py-2 rounded-md cursor-pointer font-medium ${activeTab === "new" ? "bg-[#ff2e87] text-white" : "bg-gray-200 text-gray-700"}`}
                 >
                     New Orders
                 </button>
                 <button
                     onClick={() => setActiveTab("Delivered")}
-                    className={`px-4 py-2 rounded-md font-medium ${activeTab === "Delivered" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700"}`}
+                    className={`px-4 py-2 cursor-pointer rounded-md font-medium ${activeTab === "Delivered" ? "bg-[#ff2e87] text-white" : "bg-gray-200 text-gray-700"}`}
                 >
                     Delivered Orders
                 </button>

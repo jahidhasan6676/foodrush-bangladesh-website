@@ -14,7 +14,6 @@ export async function GET(req) {
         const regexes = keywords.map(word => new RegExp(word, "i"));
 
         const result = await Shop.find({
-            shopStatus: "approved",
             $or: [
                 { location: { $in: regexes } },
                 { address: { $in: regexes } },

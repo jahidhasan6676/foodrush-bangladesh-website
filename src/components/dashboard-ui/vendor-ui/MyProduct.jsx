@@ -88,14 +88,14 @@ const MyProduct = () => {
                             <TableCell className="text-right">
                                 <Link href={`/dashboard/vendor/myProduct/${product?._id}`}>
                                     <button
-                                        className="bg-blue-500 text-white px-2 py-2 rounded-md mr-2 hover:bg-blue-600">
+                                        className="bg-blue-500 cursor-pointer text-white px-2 py-2 rounded-md mr-2 hover:bg-blue-600">
                                         <FaRegEdit />
                                     </button>
                                 </Link>
 
                                 <button
                                     onClick={() => handleProductDelete(product?._id)}
-                                    className="bg-red-500 text-white px-2 py-2 rounded-md hover:bg-red-600">
+                                    className="bg-red-500 cursor-pointer text-white px-2 py-2 rounded-md hover:bg-red-600">
                                     <MdDelete />
                                 </button>
                             </TableCell>

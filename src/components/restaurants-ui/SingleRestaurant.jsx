@@ -232,7 +232,7 @@ const SingleRestaurant = () => {
                 <div className="fixed inset-0  bg-gray-50/80 bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white max-w-md border rounded-lg relative">
                         <button
-                            className="absolute top-2 right-2 rounded-full w-[30px] h-[30px] bg-white hover:text-red-500 text-[16px] items-center"
+                            className="absolute top-2 right-2 cursor-pointer rounded-full w-[30px] h-[30px] bg-white hover:text-red-500 text-[16px] items-center"
                             onClick={() => setSelectedProduct(null)}
                         >
                             ✕

@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { ArrowUpIcon, ArrowDownIcon } from "lucide-react"
 import { Check, CheckCircle, AlertCircle, HelpCircle, Settings } from "lucide-react"
+import { TbCurrencyTaka } from "react-icons/tb";
 import {
   AreaChart,
   Area,
@@ -111,8 +112,8 @@ const AdminDashboard = () => {
 
             {/* Withdraw Button */}
             <div className="ml-8">
-              <button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-medium">
-                Withdraw $
+              <button className="bg-orange-500 hover:bg-orange-600 cursor-pointer text-white px-6 py-3 rounded-lg font-medium">
+                Withdraw 
               </button>
             </div>
           </div>

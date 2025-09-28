@@ -24,7 +24,7 @@ const PartnershipSection = () => {
               Would you like millions of new customers to enjoy your amazing food and groceries? 
               Let's start our partnership today!
             </p>
-            <button className="bg-[#e21b70] hover:bg-[#c01762] text-white font-semibold py-2 px-6 rounded-md transition duration-300">
+            <button className="bg-[#e21b70] cursor-pointer hover:bg-[#c01762] text-white font-semibold py-2 px-6 rounded-md transition duration-300">
               Become a Partner
             </button>
           </div>
@@ -49,7 +49,7 @@ const PartnershipSection = () => {
               Are you a man of speed and a master of navigation? Become a Food! Hero and 
               earn up to 25,000 TK each month while spreading joy to the doorsteps.
             </p>
-            <button className="bg-[#e21b70] hover:bg-[#c01762] text-white font-semibold py-2 px-6 rounded-md transition duration-300">
+            <button className="bg-[#e21b70] cursor-pointer hover:bg-[#c01762] text-white font-semibold py-2 px-6 rounded-md transition duration-300">
               Become a Hero
             </button>
           </div>

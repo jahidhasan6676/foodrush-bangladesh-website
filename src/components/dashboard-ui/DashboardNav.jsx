@@ -38,9 +38,9 @@ const DashboardNav = () => {
                 {/* Right Side Controls */}
                 <div className="flex items-center gap-4">
                     {/* Notifications */}
-                    <Button variant="outline" size="icon" className="relative">
+                    <Button variant="outline" size="icon" className="relative cursor-pointer">
                         <Bell className="h-4 w-4" />
-                        <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full bg-red-500"></span>
+                        <span className="absolute -right-1 -top-1 h-3 w-3  rounded-full bg-red-500"></span>
                     </Button>
 
                     {/* User Profile */}
@@ -67,7 +67,7 @@ const DashboardNav = () => {
                             {role && <p className="text-sm font-medium">{role?.role}</p>}
                             {session?.user?.email && <p className="text-xs text-muted-foreground">{session?.user?.email}</p>}
                         </div>
-                        <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                        <ChevronDown className="h-4 w-4 text-muted-foreground cursor-pointer" />
                     </div>
                 </div>
             </header>

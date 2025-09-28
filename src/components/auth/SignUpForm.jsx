@@ -128,7 +128,7 @@ export default function SignUpForm() {
                             <div>
                                 <button
                                     type="submit"
-                                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md text-sm font-medium text-white bg-[#e21b70] hover:bg-[#c01762] focus:outline-none">
+                                    className="w-full cursor-pointer flex justify-center py-2 px-4 border border-transparent rounded-md text-sm font-medium text-white bg-[#e21b70] hover:bg-[#c01762] focus:outline-none">
                                     Create account
                                 </button>
                             </div>
@@ -142,7 +142,7 @@ export default function SignUpForm() {
                             Already have an account?{' '}
                             <a
                                 href="/login"
-                                className="font-medium text-[#ff2e87]">
+                                className="font-medium cursor-pointer text-[#ff2e87]">
                                 Sign in
                             </a>
                         </p>

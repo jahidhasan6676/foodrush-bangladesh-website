@@ -57,7 +57,7 @@ const PendingProduct = () => {
                             <td className="p-2">{product?.price}TK.</td>
                             <td className="p-2">{product?.status}</td>
                           
-                            <td className="p-2 flex items-center gap-2">
+                            <td className="p-2  space-x-1">
                                 <button onClick={()=>handleStatusChange(product?._id, "approved")}  className="bg-green-500 text-white px-3 py-1 rounded cursor-pointer">
                                     Approve
                                 </button>

@@ -33,7 +33,6 @@ const AddShop = () => {
             location,
             address,
             shopPhoto,
-            shopStatus: "pending",
             ownerInfo: {
                 name: session?.user?.name,
                 email: session?.user?.email,
@@ -174,7 +173,7 @@ const AddShop = () => {
                     <div className="md:col-span-2 pt-4">
                         <button
                             type="submit"
-                            className="w-full bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition font-medium text-lg shadow-md hover:shadow-lg"
+                            className="w-full bg-[#ff2e87] cursor-pointer text-white px-6 py-3 rounded-lg transition font-medium text-lg shadow-md hover:shadow-lg"
                         >
                             Add Shop
                         </button>

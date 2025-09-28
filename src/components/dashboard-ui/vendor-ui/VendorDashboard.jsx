@@ -26,6 +26,9 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import useShopId from '@/components/client-hooks/useShopId';
+import { TbCurrencyTaka } from "react-icons/tb";
+import { MdOutlinePending } from "react-icons/md";
+import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 
 // Sample data for charts
 const lineChartData = [
@@ -134,7 +137,7 @@ const SellerDashboard = () => {
                 <p className="text-sm font-semibold text-gray-600">Revenue</p>
                 <p className="text-4xl font-bold text-gray-900">{dashboardData?.stats?.revenue || 0}</p>
               </div>
-              <MdAttachMoney className="h-10 w-10 text-green-500 opacity-80" />
+              <TbCurrencyTaka className="h-10 w-10 text-green-500 opacity-80" />
             </div>
             <p className="text-xs text-green-600 mt-3">+8% from last month</p>
           </div>
@@ -145,7 +148,7 @@ const SellerDashboard = () => {
                 <p className="text-sm font-semibold text-gray-600">Pending Orders</p>
                 <p className="text-4xl font-bold text-gray-900">{dashboardData?.stats?.pendingOrders || 0}</p>
               </div>
-              <MdPeople className="h-10 w-10 text-yellow-500 opacity-80" />
+              <MdOutlinePending className="h-10 w-10 text-yellow-500 opacity-80" />
             </div>
             <p className="text-xs text-red-600 mt-3">-5 orders today</p>
           </div>
@@ -156,7 +159,7 @@ const SellerDashboard = () => {
                 <p className="text-sm font-semibold text-gray-600">Completed Order</p>
                 <p className="text-4xl font-bold text-gray-900">{dashboardData?.stats?.completedOrders || 0}</p>
               </div>
-              <MdStar className="h-10 w-10 text-amber-500 opacity-80" />
+              <IoIosCheckmarkCircleOutline className="h-10 w-10 text-amber-500 opacity-80" />
             </div>
             <p className="text-xs text-green-600 mt-3">+8% from last month</p>
           </div>

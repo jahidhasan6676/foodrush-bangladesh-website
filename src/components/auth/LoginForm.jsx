@@ -116,7 +116,7 @@ export default function LoginPage() {
                             </div>
                             <div className="text-end text-sm">
                                 <a href="#"
-                                    className="font-medium text-[#ff2e87]">
+                                    className="font-medium text-[#ff2e87] cursor-pointer">
                                     Forgot your password?
                                 </a>
                             </div>
@@ -124,7 +124,7 @@ export default function LoginPage() {
                             <div>
                                 <button
                                     type="submit"
-                                    className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#e21b70] hover:bg-[#c01762] focus:outline-none`}>
+                                    className={`w-full flex justify-center cursor-pointer py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#e21b70] hover:bg-[#c01762] focus:outline-none`}>
                                     Sign In
                                 </button>
                             </div>
@@ -133,7 +133,7 @@ export default function LoginPage() {
                             <p className="text-sm text-gray-600">
                                 Don't have an account?{' '}
                                 <a href="signup"
-                                    className="font-medium text-[#ff2e87]">
+                                    className="font-medium cursor-pointer text-[#ff2e87]">
                                     Sign up
                                 </a>
                             </p>

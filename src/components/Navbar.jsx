@@ -1,6 +1,6 @@
 "use client";
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { TfiBag } from "react-icons/tfi";
 import { TbWorld } from "react-icons/tb";
 import { IoIosArrowDown, IoIosClose, IoIosLogOut, IoIosMenu } from "react-icons/io";
@@ -11,6 +11,13 @@ import { signOut, useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
 import useRole from './client-hooks/useRole';
 import useCart from './client-hooks/useCart';
+import { RxHome } from 'react-icons/rx';
+import { BiUser } from "react-icons/bi";
+import { IoIosStarOutline } from "react-icons/io";
+import { PiShoppingCartSimple } from "react-icons/pi";
+import { PiMoneyBold } from "react-icons/pi";
+import { LuSendHorizontal } from "react-icons/lu";
+import { MdOutlineDashboard } from "react-icons/md";
 
 
 export default function Navbar() {
@@ -20,14 +27,30 @@ export default function Navbar() {
     const pathname = usePathname();
     const { role } = useRole();
     const { carts } = useCart();
+    const dropdownRef = useRef();
     //console.log("user:", session)
 
     const handleLogout = () => {
         signOut({ redirect: false });
         router.push("/login")
+        setShowDropdown(false);
     }
 
     const toggleDropdown = () => setShowDropdown(!showDropdown);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setShowDropdown(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+    
+    useEffect(() => {
+        setShowDropdown(false);
+    }, [pathname]);
 
     if (pathname.startsWith("/dashboard")) return null;
 
@@ -61,12 +84,12 @@ export default function Navbar() {
 
                         {session?.user?.email ? (
                             <>
-                                <div className='flex items-center gap-1 relative'>
-                                    <button onClick={toggleDropdown} className="flex items-center gap-1">
+                                <div className='flex items-center gap-1 relative' ref={dropdownRef}>
+                                    <button onClick={toggleDropdown} className="flex items-center gap-1 cursor-pointer">
                                         <p className='text-xl'> <FaRegUser /> </p>
-                                        <div className='flex items-center'>
-                                            <h2 className='font-medium'>Winifred</h2>
-                                            <p className='text-xl text-[#e21b70] cursor-pointer'> <IoIosArrowDown /> </p>
+                                        <div className='flex items-center '>
+                                            <h2 className='font-medium'>{session?.user?.name.split(" ")[0] || Winifred}</h2>
+                                            <p className='text-xl text-[#e21b70] '> <IoIosArrowDown /> </p>
                                         </div>
                                     </button>
 
@@ -75,42 +98,42 @@ export default function Navbar() {
                                         <div className=" absolute right-0 top-full mt-[17px] w-64 bg-white rounded-sm border-none shadow-sm z-50 p-4">
 
                                             <Link href="/"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
-                                                <FaRegUser className="w-[18px] h-[18px]" />
+                                                <RxHome className="w-[18px] h-[18px]" />
                                                 Home
                                             </div>
                                             </Link>
 
                                             {role.role === "customer" && <Link href="/userProfile"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
-                                                <FaRegUser className="w-[18px] h-[18px]" />
+                                                <BiUser className="w-[18px] h-[18px]" />
                                                 Profile
                                             </div>
                                             </Link>}
 
                                             {role.role === "customer" && <Link href="/subscribe"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
-                                                <FaRegUser className="w-[18px] h-[18px]" />
+                                                <IoIosStarOutline className="w-[18px] h-[18px]" />
                                                 Subscribe
                                             </div>
                                             </Link>}
 
                                             {role.role === "customer" && <Link href="/myOrders"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
-                                                <LiaClipboardListSolid className="w-[18px] h-[18px]" />
+                                                <PiShoppingCartSimple className="w-[18px] h-[18px]" />
                                                 My Orders
                                             </div>
                                             </Link>}
 
                                             {role.role === "customer" && <Link href="/wallet"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
-                                                <LiaClipboardListSolid className="w-[18px] h-[18px]" />
+                                                <PiMoneyBold className="w-[18px] h-[18px]" />
                                                 Wallet
                                             </div>
                                             </Link>}
                                             {role.role === "customer" && <Link href="/vendorMemberForm"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
-                                                <LiaClipboardListSolid className="w-[18px] h-[18px]" />
+                                                <LuSendHorizontal className="w-[18px] h-[18px]" />
                                                 Vendor Member
                                             </div>
                                             </Link>}
 
                                             {role.role !== "customer" && <Link href="/dashboard"><div className="flex items-center gap-3 hover:bg-gray-100 py-3 px-4 rounded-md font-medium text-gray-700">
-                                                <FaRegUser className="w-[18px] h-[18px]" />
+                                                <MdOutlineDashboard className="w-[18px] h-[18px]" />
                                                 Dashboard
                                             </div>
                                             </Link>}
@@ -121,7 +144,7 @@ export default function Navbar() {
                                             </div>
                                             </Link>
 
-                                            <button onClick={handleLogout} className="flex items-center justify-between gap-2 px-4 py-2 rounded-lg hover:bg-gray-100 w-full"><div className="flex items-center gap-2 font-medium text-gray-700">
+                                            <button onClick={handleLogout} className="flex items-center justify-between gap-2 px-4 py-2 rounded-lg cursor-pointer hover:bg-gray-100 w-full"><div className="flex items-center gap-2 font-medium text-gray-700">
                                                 <IoIosLogOut className="w-[18px] h-[18px]" />
                                                 LogOut
                                             </div>
@@ -135,14 +158,14 @@ export default function Navbar() {
                                 {/* Login button - hidden on mobile */}
                                 <Link href="/login"><button
                                     // onClick={toggleLoginModal}
-                                    className="border border-[#e21b70] hover:bg-[#e4cbd6] h-[35px] lg:h-[40px] px-4 rounded-md text-[#ff2e87] font-medium">
+                                    className="border cursor-pointer border-[#e21b70] hover:bg-[#e4cbd6] h-[35px] lg:h-[40px] px-4 rounded-md text-[#ff2e87] font-medium">
                                     Sign in
                                 </button></Link>
 
                                 {/* Sign Up button - hidden on mobile */}
                                 <Link href="signup"><button
                                     // onClick={toggleLoginModal}
-                                    className="hidden lg:block bg-[#e21b70] hover:bg-[#c01762] text-white px-4 py-2 rounded-md font-medium transition-colors">
+                                    className="hidden cursor-pointer lg:block bg-[#e21b70] hover:bg-[#c01762] text-white px-4 py-2 rounded-md font-medium transition-colors">
                                     Sign Up for free delivery
                                 </button>
                                 </Link>

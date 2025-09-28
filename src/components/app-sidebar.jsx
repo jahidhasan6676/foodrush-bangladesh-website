@@ -5,19 +5,24 @@ import {
   AudioWaveform,
   BookOpen,
   Bot,
+  Box,
   Boxes,
   ClipboardList,
   Command,
+  Forward,
   Frame,
   GalleryVerticalEnd,
   Home,
+  ListOrdered,
   LogIn,
   Map,
   PieChart,
   Plus,
   Settings2,
+  ShoppingBag,
   SquareTerminal,
   User,
+  UserPlus,
 } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
@@ -31,7 +36,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import useRole from "./client-hooks/useRole";
-
+import { MdOutlineDashboard } from "react-icons/md";
 
 const allNavItems = {
   admin: [
@@ -48,7 +53,7 @@ const allNavItems = {
     {
     title: "All Product",
     url: "#",
-    icon: Settings2,
+    icon: Box,
     items: [
       { title: "Pending Product", url: "/dashboard/admin/pendingProducts" },
       { title: "Approved Product", url: "/dashboard/admin/approvedProducts" },
@@ -58,7 +63,7 @@ const allNavItems = {
     {
     title: "All Users",
     url: "#",
-    icon: Settings2,
+    icon: UserPlus,
     items: [
       { title: "Customers", url: "/dashboard/admin/customerList" },
       { title: "Vendors", url: "/dashboard/admin/shopList" },
@@ -68,7 +73,7 @@ const allNavItems = {
    {
       title: "Vendor Request",
       url: "/dashboard/admin/vendorRequest",
-      icon: ClipboardList,
+      icon: Forward,
     },
   ],
 
@@ -76,12 +81,12 @@ const allNavItems = {
     {
       title: "Dashboard",
       url: "/dashboard",
-      icon: SquareTerminal,
+      icon: MdOutlineDashboard,
     },
     {
       title: "Add Shop",
       url: "/dashboard/vendor/addShop",
-      icon: Boxes,
+      icon: ShoppingBag,
     },
     {
       title: "Add Product",
@@ -91,12 +96,12 @@ const allNavItems = {
     {
       title: "My Product",
       url: "/dashboard/vendor/myProduct",
-      icon: Boxes,
+      icon: Box,
     },
     {
       title: "All Orders",
       url: "/dashboard/vendor/newOrders",
-      icon: Boxes,
+      icon: ListOrdered,
     },
     
     
@@ -169,17 +174,8 @@ const commonItems = [
     url: "/",
     icon: Home,
   },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings2,
-    items: [
-      { title: "General", url: "#" },
-      { title: "Team", url: "#" },
-      { title: "Billing", url: "#" },
-      { title: "Limits", url: "#" },
-    ],
-  },
+
+  
 ];
 
 const userData = {

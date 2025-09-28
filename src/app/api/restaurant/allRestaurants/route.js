@@ -16,7 +16,7 @@ export async function GET(req) {
 
 
         // Base query
-        let query = { shopStatus: "approved" };
+        let query = {};
 
         // Add category filter if specified
         if (category) {

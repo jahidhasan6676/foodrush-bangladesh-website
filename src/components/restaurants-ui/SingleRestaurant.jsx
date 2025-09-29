@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { IoIosArrowForward } from 'react-icons/io';
 import { useSession } from 'next-auth/react';
 import { toast } from 'react-toastify';
+import FoodRushLoader from '../loadingSpinner/FoodRushLoader';
 
 const SingleRestaurant = () => {
     const queryClient = useQueryClient();
@@ -35,7 +36,11 @@ const SingleRestaurant = () => {
     //console.log("products", products)
 
 
-    if (isLoading) return <h2>Loading...</h2>;
+    if (isLoading) return (
+        <div className="min-h-screen flex items-center justify-center">
+            <FoodRushLoader />
+        </div>
+    );
     // if (!restaurant) return <h2>No restaurant found.</h2>
     //console.log("shop products", restaurantData)
 

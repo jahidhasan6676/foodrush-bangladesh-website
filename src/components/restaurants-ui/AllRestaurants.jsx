@@ -15,6 +15,7 @@ import 'swiper/css/navigation';
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import jokerImage from "../../../public/joker.png"
 import Link from 'next/link';
+import FoodRushLoader from '../loadingSpinner/FoodRushLoader';
 
 const AllRestaurants = () => {
     const swiperRef = useRef(null);
@@ -78,8 +79,8 @@ const AllRestaurants = () => {
 
 
     if (isLoading) return (
-        <div className="w-full h-screen flex justify-center items-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-500"></div>
+        <div className="min-h-screen flex items-center justify-center">
+            <FoodRushLoader />
         </div>
     );
 

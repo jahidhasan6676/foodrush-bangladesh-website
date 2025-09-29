@@ -1,4 +1,5 @@
 import React from "react";
+import { SiFoodpanda } from "react-icons/si";
 
 const FeatureSection = () => {
   return (
@@ -16,6 +17,7 @@ const FeatureSection = () => {
           <h3 className="text-xl font-semibold text-gray-900 mb-2">
             Super fast Delivery
           </h3>
+          
           <p className="text-[17px] text-gray-800">
             Faster than your savings can blink. Experience the super-fast delivery and get fresh food.
           </p>

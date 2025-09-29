@@ -66,12 +66,12 @@ const Checkout = () => {
         }
 
         const response = await axios.post("/api/create-ssl-payment", paymentInfo)
-        console.log("response info", response)
+        //console.log("response info", response)
         const gatewayUrl = response?.data?.gatewayUrl;
         if (gatewayUrl) {
             window.location.href = gatewayUrl;
         } else {
-            console.error("Gateway URL missing:", response?.data);
+            //console.error("Gateway URL missing:", response?.data);
             alert("Payment gateway URL not found.");
         }
     }

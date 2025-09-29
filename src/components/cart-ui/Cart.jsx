@@ -8,6 +8,7 @@ import useCart from '../client-hooks/useCart';
 import { toast } from 'react-toastify';
 import { useQueryClient } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
+import FoodRushLoader from '../loadingSpinner/FoodRushLoader';
 
 const Cart = () => {
     const queryClient = useQueryClient();
@@ -21,11 +22,15 @@ const Cart = () => {
         if (res.status === 200) {
             toast.success("Cart item delete")
             queryClient.invalidateQueries(["carts", session?.user?.email]);
-            
+
         }
     }
 
-    if (isLoading) return <h2>Loading...</h2>
+    if (isLoading) return (
+        <div className="min-h-screen flex items-center justify-center">
+            <FoodRushLoader />
+        </div>
+    );
     //console.log("all cart data", carts[0].charge)
 
     const totalQuantity = carts.reduce((acc, item) => acc + item.quantity, 0);
